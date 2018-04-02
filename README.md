@@ -1,5 +1,5 @@
-# campusShops
+# CampusShops
 校园商城
 
-# architecture
+# Architecture
 ![architecture](https://github.com/ChenhuaFan/campusShops/blob/master/documents/imgs/structure.png) 
