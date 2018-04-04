@@ -5,4 +5,17 @@
 ![architecture](https://github.com/ChenhuaFan/campusShops/blob/master/documents/imgs/structure.png) 
 
 
-test
+/*********
+
+why I can't use sougou???
+
+./static
+    ./index.html 
+    ./createAcount.html
+    ./myInformation.html
+    ./store.html
+    ./storeInformation.html
+    ./
+
+
+*********/
