@@ -25,3 +25,4 @@
 - /dist
 - LICENSE
 - .gitignore
+- /documents
