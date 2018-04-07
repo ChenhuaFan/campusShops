@@ -39,6 +39,7 @@ const authUpdate = ctx => {
 }
 
 const test = ctx => {
+    //here is a test module for returning a json.
     const body = ctx.request.body;
     if(body.a == 'a') {
         ctx.response.type = 'json';
