@@ -1,0 +1,8 @@
+# ignore all node modules
+node_modules
+
+# ignore all of pdf files
+*.pdf
+
+# do not ignore pdf files in www/static
+!src/www/static/**/*.pdf
