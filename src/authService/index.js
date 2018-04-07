@@ -2,7 +2,10 @@ const Koa = require('koa');
 const app = new Koa();
 const route = require('koa-route');
 const koaBody = require('koa-body');
-var superagent = require('superagent');
+const superagent = require('superagent');
+const config = require('./config/default');
+const time = require('./modules/time')
+const jwt = require('./modules/jwt');
 
 app.use(koaBody());
 
@@ -17,17 +20,38 @@ const authGet = async ctx => {
         .set('Accept', 'application/json')
         .send(body)
         .then((res, err) => {
-            return res.res.text;
+            return JSON.parse(res.res.text);
         });
     }
-    //async get return values
+    //async get return values and set response
     let userRes = await userReq(body);
-    //response
-    ctx.response.type = 'json';
-    ctx.response.body = {
-        "status": true,
-        "info": userRes
-    };
+    if(userRes.status != false) {
+        //generate token
+        let now = time.now();
+        let payload = {
+            "name": "samchevia",
+            "uuid": 1,
+            "role": "admin",
+            "iat": now,
+            "exp": config.jwt.payload.exp,
+            "nbf": now + config.jwt.payload.exp
+        };
+        let token = jwt.create(config.jwt.head, payload, config.jwt.secret);
+        //set response
+        ctx.response.status = 200;
+        ctx.response.type = 'json';
+        ctx.response.body = {
+            "status": true,
+            "info": token
+        }
+    } else {
+        ctx.response.status = 403;
+        ctx.response.type = 'json';
+        ctx.response.body = {
+            "status": false,
+            "info": userRes.info
+        }
+    }
 };
 
 const authPost = ctx => {
@@ -50,7 +74,8 @@ const test = ctx => {
     else {
         ctx.response.type = 'json';
         ctx.response.body = {
-            "status": false
+            "status": false,
+            "info": "wrong pass or user"
         }
     }
 }
