@@ -6,3 +6,6 @@ node_modules
 
 # do not ignore pdf files in www/static
 !src/www/static/**/*.pdf
+
+# ignore con file
+src/services/token/config/*.js
