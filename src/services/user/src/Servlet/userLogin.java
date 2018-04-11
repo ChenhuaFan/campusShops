@@ -25,7 +25,7 @@ public class userLogin extends HttpServlet {
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException {
 		response.setContentType("application/json;charset=utf-8");  
         // 设置响应头允许ajax跨域访问 
         response.setHeader("Access-Control-Allow-Origin", "*");  

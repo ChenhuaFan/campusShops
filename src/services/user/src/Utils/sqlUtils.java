@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
@@ -142,6 +143,34 @@ public class sqlUtils {
 		}
 		return returnArr;
 	}
+	
+	public int insert(String tbName, Map<String, String> infoMap) {
+		String sql_part_1 = "";
+		String sql_part_2 = "";
+		String sql = "";
+		//拼接sql语句
+		Set<String> keySet = infoMap.keySet();
+		sql_part_1 += " (";
+		sql_part_2 += " (";
+		for(String key : keySet) {
+			sql_part_1 += key+", ";
+			sql_part_2 += "'"+infoMap.get(key)+"', ";
+		}
+		sql_part_1 = sql_part_1.substring(0,sql_part_1.length()-2);
+		sql_part_2 = sql_part_2.substring(0,sql_part_2.length()-2);
+		sql_part_1+=")";
+		sql_part_2+=")";
+		sql = "insert into "+tbName+sql_part_1+" values"+sql_part_2;
+		
+		try {
+			pst = conn.prepareStatement(sql);
+			pst.execute();
+		} catch(SQLException e) {
+			e.printStackTrace();
+			return 0;
+		}
+		return 1;
+	}
 //	public static void main(String[] args) {
 //		sqlUtils su = new sqlUtils();
 //		su.connect();
@@ -149,6 +178,10 @@ public class sqlUtils {
 //		Map<String, String> offerMap = new HashMap<String, String>();
 //		offerMap.put("userName", "Liaray");
 //		offerMap.put("pw", "123456");
+//		offerMap.put("phone", "18155925262");
+//		offerMap.put("email", "1107325513@qq.com");
+//		offerMap.put("gender", "男");
+//		su.insert("user", offerMap);
 //		String demandArr[] = {"userID","phone","email","pw"};
 //		String infoArr[][] =  su.select("user",offerMap, demandArr,1 ,2);
 //		for(String[] info_arr : infoArr) {

@@ -17,4 +17,15 @@ public class UserDao {
 		
 		return userInfo;
 	}
+	public int insertUser(Map<String,String> infoMap) {
+		//变量声明
+		sqlUtils su = null;
+		int line;
+		//访问数据库,插入一条新记录
+		su = new sqlUtils();
+		su.connect();
+		line = su.insert("user", infoMap);
+		su.close();
+		return line;
+	}
 }

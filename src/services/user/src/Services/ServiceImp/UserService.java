@@ -15,7 +15,7 @@ public class UserService implements IUserService {
 		//变量声明
 		Map<String, String> userAndPw = null;
 		UserDao ud = null;
-		String infoArr[][] = null;
+		String userInfo[][] = null;
 		sha256Util sha256 = null;
 		String demandArr[] = {"userID","userName","role","headPortrait"};
 		String pw_sha256="";
@@ -28,8 +28,48 @@ public class UserService implements IUserService {
 		userAndPw.put("pw", pw_sha256);
 		//调用UserDao层
 		ud = new UserDao();
-		infoArr = ud.queryUser(userAndPw, demandArr, 1, 1);
-		return infoArr;
+		userInfo = ud.queryUser(userAndPw, demandArr, 1, 1);
+		return userInfo;
 	}
+
+	//用户注册服务
+	@Override
+	public String[][] userRegister(String userName, String pw, String email, String phone, String gender) {
+		//变量声明
+		sha256Util sha256 = null;
+		UserDao ud = null;
+		UserService us = null;
+		//存储用户注册的信息
+		Map<String, String> infoMap = null;
+		//用户身份信息
+		String userInfo[][] = null;
+		
+		String pw_sha256="";
+		//对用户密码进行sha256加密
+		sha256 = new sha256Util();
+		pw_sha256 = sha256.getSHA256StrJava(pw);
+		//加信息存入map中
+		infoMap = new HashMap<String, String>();
+		infoMap.put("userName", userName);
+		infoMap.put("pw", pw_sha256);
+		//email非空判断
+		if(email != "") {
+			infoMap.put("email", email);
+		}
+		infoMap.put("phone", phone);
+		infoMap.put("gender", gender);
+		//调用UserDao
+		ud = new UserDao();
+		ud.insertUser(infoMap);
+		
+		//实例化自己的对象,获得用户身份信息
+		us = new UserService();
+		userInfo = us.userLogin(userName, pw);
+		
+		
+		return userInfo;
+	}
+
+	
 
 }
