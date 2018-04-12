@@ -11,5 +11,5 @@ public interface IUserService {
 	 * checkField[0]为字段名
 	 * checkField[1]为字段值
 	 * */
-	public int duplicateCheck(String checkField[]);
+	public int duplicateCheck(String key, String value);
 }
