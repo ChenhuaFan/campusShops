@@ -41,7 +41,7 @@ public class userLogin extends HttpServlet {
         String info[][] = null;
         
         try {
-        	out = response.getWriter();  
+        	out = response.getWriter();
 	        json = JsonReader.receivePost(request);
 	        //通过JSONObject获得username和pw
         	userName = json.getString("userName");
@@ -75,7 +75,7 @@ public class userLogin extends HttpServlet {
         	//IO异常
 //			e.printStackTrace();
 		} finally {
-        	out.flush();  
+        	out.flush();
         }
 	}
 }

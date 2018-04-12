@@ -47,6 +47,7 @@ public class userRegister extends HttpServlet {
         	json = JsonReader.receivePost(request);
         	email = json.getString("json");
         } catch (JSONException e) {
+        	//json中无email字段时
         	email = "";
         } catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
@@ -63,24 +64,22 @@ public class userRegister extends HttpServlet {
         		
         		us = new UserService();
         		
-        		
-        		
         		//获得用户信息，存入info[][]数组
         		info = us.userRegister(userName, pw, email, phone, gender);
-        		if(info[0][0] == null) {
-        			//将错误信息存入json对象中
-        			JSONObject errorInfo = new JSONObject();
-        			errorInfo.put("status", "false");
-        			errorInfo.put("info", "wrong username or password");
-        			out.println(errorInfo);
+        		if(info == null) {
+        			//用户存在错误返回
+    				JSONObject errorInfo = new JSONObject();
+    				errorInfo.put("status", "false");
+    				errorInfo.put("info", "the userName has been existed");
+    				out.println(errorInfo);
         		} else {
-        			//将用户信息存入json对象中
-        			JSONObject userInfo = new JSONObject();
-        			userInfo.put("userID", Integer.parseInt(info[0][0]));
-        			userInfo.put("userName", info[0][1]);
-        			userInfo.put("role", info[0][2]);
-        			userInfo.put("headPortrait", info[0][3]);
-        			out.println(userInfo);
+    				//将用户信息存入json对象中
+    				JSONObject userInfo = new JSONObject();
+    				userInfo.put("userID", Integer.parseInt(info[0][0]));
+    				userInfo.put("userName", info[0][1]);
+    				userInfo.put("role", info[0][2]);
+    				userInfo.put("headPortrait", info[0][3]);
+    				out.println(userInfo);
         		}
         	} catch(JSONException e) {
         		//通过JSONObject获得用户名,密码,手机号,性别失败异常
