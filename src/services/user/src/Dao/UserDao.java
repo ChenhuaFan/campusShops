@@ -5,6 +5,7 @@ import java.util.Map;
 import Utils.sqlUtils;
 
 public class UserDao {
+	//查询用户信息
 	public String[][] queryUser(Map<String,String> offerMap, String demandArr[], int index, int lim) {
 		//变量声明
 		sqlUtils su = null;
@@ -17,6 +18,7 @@ public class UserDao {
 		
 		return userInfo;
 	}
+	//插入一条用户信息
 	public int insertUser(Map<String,String> infoMap) {
 		//变量声明
 		sqlUtils su = null;
@@ -27,5 +29,18 @@ public class UserDao {
 		line = su.insert("user", infoMap);
 		su.close();
 		return line;
+	}
+	
+	//检查字段是否重复
+	public int fieldRecheck(String duplicateField[]) {
+		//变量声明
+		sqlUtils su = null;
+		int count = 0;
+		//检查是否有重复字段
+		su = new sqlUtils();
+		su.connect();
+		count = su.duplicateChecking("user", duplicateField);
+		//返回查到的行数
+		return count;
 	}
 }

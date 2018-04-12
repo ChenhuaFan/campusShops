@@ -9,6 +9,8 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  
+  <!--- 用户登陆模块 -->
   <servlet>
     <servlet-name>Login</servlet-name>
     <servlet-class>Servlet.userLogin</servlet-class>
@@ -17,6 +19,8 @@
     <servlet-name>Login</servlet-name>
     <url-pattern>/userLogin</url-pattern>
   </servlet-mapping>
+  
+  <!--- 用户注册模块 -->
   <servlet>
     <servlet-name>Register</servlet-name>
     <servlet-class>Servlet.userRegister</servlet-class>
@@ -25,4 +29,15 @@
     <servlet-name>Register</servlet-name>
     <url-pattern>/userRegister</url-pattern>
   </servlet-mapping>
+  
+  <!--- 用户特征字段查重 -->
+  <servlet>
+    <servlet-name>fieldRecheck</servlet-name>
+    <servlet-class>Servlet.isExisted</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>fieldRecheck</servlet-name>
+    <url-pattern>/isExisted</url-pattern>
+  </servlet-mapping>
+  
 </web-app>

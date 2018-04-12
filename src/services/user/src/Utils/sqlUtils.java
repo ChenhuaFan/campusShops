@@ -81,6 +81,25 @@ public class sqlUtils {
 		}
 	}
 	
+	//检查数据库是否有重复字段
+	public int duplicateChecking(String tbName, String duplicateField[]) {
+		int line = 0;
+		String sql = "select count("+duplicateField[0]+") from "+tbName+" where "+duplicateField[0]+" = '"+duplicateField[1]+"'";
+		try {
+			pst = conn.prepareStatement(sql);
+			rs = pst.executeQuery();
+			System.out.println(sql);
+			while(rs.next()) {
+				line = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return line;
+	}
+	
 	/*
 	 * tbName:表名
 	 * Map<String,String> offerMap:供查询的字段名和数据
@@ -174,6 +193,9 @@ public class sqlUtils {
 //	public static void main(String[] args) {
 //		sqlUtils su = new sqlUtils();
 //		su.connect();
+//		String checkField[] = {"userName","Liaray"};
+//		int line = su.duplicateChecking("user", checkField);
+//		System.out.println(line);
 //		//检查sql语句拼接
 //		Map<String, String> offerMap = new HashMap<String, String>();
 //		offerMap.put("userName", "Liaray");
