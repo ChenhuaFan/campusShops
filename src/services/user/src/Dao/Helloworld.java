@@ -2,7 +2,9 @@ package Dao;
 
 public class Helloworld {
 	public Helloworld() {
-		System.out.println("hello world");
-		// TODO Auto-generated constructor stub
+		if( 1==1) {
+			System.out.println("hello world");
+			
+		}
 	}
 }
