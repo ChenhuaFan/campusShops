@@ -49,8 +49,8 @@ public class isExisted extends HttpServlet {
         	checkField[0] = "email";
         	checkField[1] = email;
         }
-        //result代表查重的结果,0代表无重复,非0代表有重复
-        result = us.duplicateCheck(checkField);
+        //result代表查重的结果,0代表无重复,非0代表有重复或字段格式有误
+        result = us.duplicateCheck(checkField[0], checkField[1]);
         try {
         	out = response.getWriter();
 	        if(result != 0) {

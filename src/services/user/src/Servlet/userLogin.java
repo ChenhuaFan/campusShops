@@ -12,6 +12,7 @@ import Services.ServiceImp.UserService;
 import net.sf.json.JSONException;
 import net.sf.json.JSONObject;
 import Utils.JsonReader;
+import Utils.regexStr;
 
 //@WebServlet("/userLogin")
 public class userLogin extends HttpServlet {
@@ -36,6 +37,7 @@ public class userLogin extends HttpServlet {
         PrintWriter out = null;
         JSONObject json = null;
         UserService us = null;
+        regexStr reg = null;
         String userName="";
         String pw = "";
         String info[][] = null;
@@ -45,26 +47,33 @@ public class userLogin extends HttpServlet {
 	        json = JsonReader.receivePost(request);
 	        //通过JSONObject获得username和pw
         	userName = json.getString("userName");
-        	pw = json.getString("pw");
-        	
-	        us = new UserService();
-	        //获得用户信息，存入info[][]数组
-	        info = us.userLogin(userName, pw);
-	        if(info[0][0] == null) {
-	        	//将错误信息存入json对象中
-	        	JSONObject errorInfo = new JSONObject();
-	        	errorInfo.put("status", "false");
-	        	errorInfo.put("info", "wrong username or password");
-	        	out.println(errorInfo);
-	        } else {
-	        	//将用户信息存入json对象中
-	        	JSONObject userInfo = new JSONObject();
-	        	userInfo.put("userID", Integer.parseInt(info[0][0]));
-	        	userInfo.put("userName", info[0][1]);
-	        	userInfo.put("role", info[0][2]);
-	        	userInfo.put("headPortrait", info[0][3]);
-	        	out.println(userInfo);
-	        }
+        	reg = new regexStr();
+    		pw = json.getString("pw");
+    		
+    		us = new UserService();
+    		//获得用户信息，存入info[][]数组
+    		info = us.userLogin(userName, pw);
+    		//防SQL注入
+    		if(info == null) {
+    			JSONObject errorInfo = new JSONObject();
+    			errorInfo.put("status", "false");
+    			errorInfo.put("info", "the type of username is illegal");
+    			out.println(errorInfo);
+    		} else if(info[0][0] == null) {
+    			//将错误信息存入json对象中
+    			JSONObject errorInfo = new JSONObject();
+    			errorInfo.put("status", "false");
+    			errorInfo.put("info", "wrong username or password");
+    			out.println(errorInfo);
+    		} else {
+    			//将用户信息存入json对象中
+    			JSONObject userInfo = new JSONObject();
+    			userInfo.put("userID", Integer.parseInt(info[0][0]));
+    			userInfo.put("userName", info[0][1]);
+    			userInfo.put("role", info[0][2]);
+    			userInfo.put("headPortrait", info[0][3]);
+    			out.println(userInfo);
+    		}
         } catch(JSONException e) {
         	//通过JSONObject获得用户名密码失败异常
         	JSONObject errorInfo = new JSONObject();

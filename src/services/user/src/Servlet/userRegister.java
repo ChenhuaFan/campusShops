@@ -45,7 +45,7 @@ public class userRegister extends HttpServlet {
         String info[][] = null;
         try {
         	json = JsonReader.receivePost(request);
-        	email = json.getString("json");
+        	email = json.getString("email");
         } catch (JSONException e) {
         	//json中无email字段时
         	email = "";
