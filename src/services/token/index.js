@@ -2,11 +2,27 @@ const Koa = require('koa');
 const app = new Koa();
 const route = require('koa-route');
 const koaBody = require('koa-body');
+const config = require('./config/default');
+const base64url = require('base64url')
 
 app.use(koaBody());
 
 const authGet = async ctx => {
-    //do signin and return a token if user info is correct.
+    const token = "";
+    //check payload
+    const post = ctx.request.body;
+    for(let key in config.payload) {
+        console.log(key + ": "+ (config.payload)[key]);
+    }
+};
+
+const authUpdate = ctx => {
+    //do update a old token and return a new token if former token is legal
+}
+
+/*
+const example = ctx => {
+//do signin and return a token if user info is correct.
     const body = ctx.request.body;
     //request other apis and get return values
     let userReq = body => {
@@ -48,12 +64,8 @@ const authGet = async ctx => {
             "info": userRes.info
         }
     }
-};
-
-const authUpdate = ctx => {
-    //do update a old token and return a new token if former token is legal
 }
-
+*/
 app.use(route.post('/token/get', authGet));
 app.use(route.post('/token/update', authUpdate));
 
