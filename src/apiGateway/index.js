@@ -40,6 +40,12 @@ const handler = async (ctx, next) => {
     }
 };
 
+
+// web界面监控
+const web = ctx => {
+
+};
+
 // 全局err监控
 app.on('error', (err) => {
     console.log('info: ' + err.message);
@@ -48,8 +54,7 @@ app.on('error', (err) => {
 
 // 注册错误处理
 app.use(handler);
+// 注册路由
+app.use(route.get(web));
 
-app.use(route.post('/token/get', authGet));
-app.use(route.post('/token/update', authUpdate));
-
-app.listen(3030);
+app.listen(3031);
