@@ -16,6 +16,7 @@
     "koa-compose": "^4.0.0",
     "koa-route": "^3.2.0",
     "koa-static": "^4.0.1",
-    "radis": "^1.0.5"
+    "radis": "^1.0.5",
+    "superagent": "^3.8.2"
   }
 }

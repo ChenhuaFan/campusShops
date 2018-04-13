@@ -2,8 +2,11 @@ const Koa = require('koa');
 const app = new Koa();
 const route = require('koa-route');
 const koaBody = require('koa-body');
+const radis = require('radis');
+const request = require('superagent');
 
-app.use(koaBody());
+// 服务器初始化
+
 
 // 日志记录中间件
 const logger = (ctx, next) => {
@@ -40,10 +43,10 @@ const handler = async (ctx, next) => {
     }
 };
 
-
 // web界面监控
 const web = ctx => {
-
+    ctx.response.status = 200;
+    ctx.response.body = "Hello world!";
 };
 
 // 全局err监控
@@ -52,9 +55,13 @@ app.on('error', (err) => {
     console.log(err);
 });
 
+// 注册中间件
+// 注册表单表单数据处理
+app.use(koaBody());
 // 注册错误处理
 app.use(handler);
 // 注册路由
-app.use(route.get(web));
+app.use(route.get('/', web));
 
+// 启动服务器
 app.listen(3031);

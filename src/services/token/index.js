@@ -86,6 +86,14 @@ const authUpdate = ctx => {
     };
 }
 
+const getSecret = ctx => {
+    ctx.response.status = 200;
+    ctx.response.type = 'json';
+    ctx.response.body = {
+        "secret": base64url(tokenExp.secret)
+    };
+};
+
 const handler = async (ctx, next) => {
     try {
       await next();
@@ -103,5 +111,6 @@ app.use(handler);
 
 app.use(route.post('/token/get', authGet));
 app.use(route.post('/token/update', authUpdate));
+app.use(route.post('/token/getSecret', getSecret));
 
 app.listen(3030);
