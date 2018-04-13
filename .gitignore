@@ -9,3 +9,4 @@ node_modules
 
 # ignore con file
 src/services/token/config/*.js
+src/apiGateway/config/*.js
