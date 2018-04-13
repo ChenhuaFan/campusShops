@@ -196,20 +196,47 @@ public class sqlUtils {
 		}
 		return 1;
 	}
+	
+	public int update(String tbName, Map<String, String> updateInfo, String indexField, int id) {
+		//UPDATE Person SET FirstName = 'Fred' WHERE LastName = 'Wilson' 
+		String sql_part_1 = "";
+		String sql_part_2 = "";
+		String sql = "";
+		int line = 0;
+		
+		Set<String> keySet = updateInfo.keySet();
+		for(String key : keySet) {
+			sql_part_1 += " "+key+" = "+"'"+updateInfo.get(key)+"',";
+		}
+		sql_part_1 = sql_part_1.substring(0, sql_part_1.length()-1);
+		sql_part_2 = " "+indexField+" = "+id;
+		
+		sql = "update "+tbName+" set"+sql_part_1+" where"+sql_part_2;
+		System.out.println(sql);
+		try {
+			pst = conn.prepareStatement(sql);
+			line = pst.executeUpdate();
+		} catch (SQLException e) {
+//			e.printStackTrace();
+		}
+		
+		return line;
+		
+	}
 //	public static void main(String[] args) {
 //		sqlUtils su = new sqlUtils();
 //		su.connect();
 //		String checkField[] = {"userName","Liaray"};
 //		int line = su.duplicateChecking("user", checkField);
 //		System.out.println(line);
-//		//检查sql语句拼接
+//		检查sql语句拼接
 //		Map<String, String> offerMap = new HashMap<String, String>();
 //		offerMap.put("userName", "Liaray");
 //		offerMap.put("pw", "123456");
 //		offerMap.put("phone", "18155925262");
 //		offerMap.put("email", "1107325513@qq.com");
 //		offerMap.put("gender", "男");
-//		su.insert("user", offerMap);
+//		su.update("user", offerMap, "userID", 1);
 //		String demandArr[] = {"userID","phone","email","pw"};
 //		String infoArr[][] =  su.select("user",offerMap, demandArr,1 ,2);
 //		for(String[] info_arr : infoArr) {

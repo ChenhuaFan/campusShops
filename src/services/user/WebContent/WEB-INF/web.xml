@@ -49,4 +49,12 @@
     <servlet-name>getBriefInfo</servlet-name>
     <url-pattern>/getBrief</url-pattern>
   </servlet-mapping>
+  <servlet>
+  	<servlet-name>modifyEssential</servlet-name>
+  	<servlet-class>Servlet.modifyEssentialInfo</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>modifyEssential</servlet-name>
+    <url-pattern>/modifyEssentialInfo</url-pattern>
+  </servlet-mapping>
 </web-app>

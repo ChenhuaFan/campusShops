@@ -3,8 +3,10 @@ package Utils;
 
 public class regexStr {
 	
-	//防止SQL注入
-	public boolean DSL(String str) {
+	///(.*?((select)|(from)|(count)|(delete)|(update)|(drop)|(truncate)).*?){2,}/i
+	
+	//用户名是否合法
+	public boolean checkUserName(String str) {
 		boolean flag = false;
 		flag = str.matches("^[a-zA-Z0-9_\\u4e00-\\u9fa5]+$");
 		return flag;
@@ -27,6 +29,20 @@ public class regexStr {
 	public boolean checkNum(int num) {
 		boolean flag = false;
 		flag = String.valueOf(num).matches("^[0-9]*$ ");
+		return flag;
+	}
+	
+	
+	public boolean checkHeadPortrait(String headPortrait) {
+		boolean flag = false;
+		flag = headPortrait.matches("^[a-zA-Z0-9_\\\\u4e00-\\\\u9fa5]+$");
+		return flag;
+	}
+	
+	//检查性别
+	public boolean checkGender(String gender) {
+		boolean flag = false;
+		flag = gender.matches("[男女]");
 		return flag;
 	}
 }

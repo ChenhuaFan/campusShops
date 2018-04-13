@@ -22,7 +22,7 @@ public class UserService implements IUserService {
 		
 		reg = new regexStr();
 		//userName字段防sql注入
-		if(reg.DSL(userName)) {
+		if(reg.checkUserName(userName)) {
 			String demandArr[] = {"userID","userName","role","headPortrait"};
 			String pw_sha256="";
 			//用户密码sha256加密
@@ -58,8 +58,8 @@ public class UserService implements IUserService {
 		int count = 0;
 		
 		reg = new regexStr();
-		//防SQL注入，检查邮箱和手机号是否合法
-		if(!(reg.DSL(userName) && reg.checkEmail(email) && reg.checkPhone(phone))) {
+		//检查用户名邮箱和手机号是否合法
+		if(!(reg.checkUserName(userName) && reg.checkEmail(email) && reg.checkPhone(phone))) {
 			return null;
 		} else {
 			//用户名是否存在
@@ -108,24 +108,27 @@ public class UserService implements IUserService {
 		int count = 0;
 		boolean flag = false;
 		String checkField[] = {key, value};
-		if(checkField[0] == "userName") {
+		if(key == "userName") {
 			reg = new regexStr();
-			flag = reg.DSL(value);
+			flag = reg.checkUserName(value);
 			if(!flag) {
 				return 2;
 			}
-		} else if(checkField[0] == "phone") {
+		} else if(key == "phone") {
 			reg = new regexStr();
-			flag = reg.DSL(value);
+			flag = reg.checkPhone(value);
 			if(!flag) {
 				return 2;
 			}
-		} else if(checkField[0] == "email") {
+		} else if(key == "email") {
 			reg = new regexStr();
-			flag = reg.DSL(value);
+			flag = reg.checkEmail(value);
 			if(!flag) {
 				return 2;
 			}
+		} else {
+			reg = new regexStr();
+			
 		}
 		
 		//调用UserDao
@@ -161,6 +164,7 @@ public class UserService implements IUserService {
 		UserDao ud = null;
 		String briefInfo[][] = null;
 		
+		
 		//存储用户ID
 		userIDMap = new HashMap<String, String>();
 		userIDMap.put("userID", String.valueOf(id));
@@ -170,6 +174,72 @@ public class UserService implements IUserService {
 		
 		return briefInfo;
 		
+	}
+
+	//更改用户基本信息
+	@Override
+	public String[][] modifyEssentialInfo(int id, String email, String phone, String gender, String headPortrait) {
+		//变量声明
+		Map<String, String> updateMap = null;
+		String userInfo[][] = null;
+		UserDao ud = null;
+		UserService us = new UserService();
+		regexStr reg = new regexStr();
+		
+		updateMap = new HashMap<String, String>();
+		//是否提交了email字段
+		if(email != "") {
+			if(us.duplicateCheck("email", email) == 0) {
+				updateMap.put("email", email);
+				
+			}
+		}
+		//是否提交了phone字段
+		if(phone != "") {
+			if(us.duplicateCheck("phone", phone) == 0) {
+				updateMap.put("phone", phone);
+			}
+		}
+		//是否提交了gender字段
+		if(gender != "") {
+			if(reg.checkGender(gender)) {
+				updateMap.put("gender", gender);
+			}
+		}
+		//是否提交了headPortrait字段
+		if(headPortrait != "") {
+			System.out.println("..");
+			updateMap.put("headPortrait", headPortrait);
+		}
+		//若前台无任何信息修改
+		if(updateMap.isEmpty()) {
+			
+			return userInfo;
+		} 
+		ud = new UserDao();
+		//更新成功
+		if(ud.updateInfo(updateMap, id) > 0) {
+			userInfo = us.getIdentifyByID(id);
+			return userInfo;
+		}
+		return userInfo;
+	}
+
+	//根据ID获得认证信息
+	@Override
+	public String[][] getIdentifyByID(int id) {
+		//变量声明
+			Map<String, String> userIDMap = null;
+			UserDao ud = null;
+			String identifyInfo[][] = null;
+			//存储用户ID
+			userIDMap = new HashMap<String, String>();
+			userIDMap.put("userID", String.valueOf(id));
+			String demandArr[] = {"userID", "userName", "role", "headPortrait"};
+			ud = new UserDao();
+			identifyInfo = ud.queryUser(userIDMap, demandArr, 1, 1);
+			
+			return identifyInfo;
 	}
 
 }

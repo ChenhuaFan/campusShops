@@ -44,4 +44,20 @@ public class UserDao {
 		//返回查到的行数
 		return count;
 	}
+	
+	//更新信息
+	public int updateInfo(Map<String, String> updateMap, int userID) {
+		//变量声明
+		sqlUtils su = null;
+		int count = 0;
+		su = new sqlUtils();
+		su.connect();
+		
+		
+		count = su.update("user", updateMap, "userID", userID);
+		su.close();
+		
+		return count;
+		
+	}
 }
