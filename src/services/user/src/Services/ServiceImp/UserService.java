@@ -5,6 +5,7 @@ import java.util.Map;
 
 import Dao.UserDao;
 import Services.IUserService;
+import Utils.deleteEmptyEle;
 import Utils.regexStr;
 import Utils.sha256Util;
 
@@ -338,6 +339,38 @@ public class UserService implements IUserService {
 				userInfo = us.getIdentifyByID(id);
 				return userInfo;
 			}
+		}
+		return userInfo;
+	}
+
+	//根据角色查询用户
+	@Override
+	public String[][] queryUserByRole(String role, int index, int lim) {
+		//变量声明
+		UserService us = null;
+		UserDao ud = null;
+		regexStr reg = null;
+		deleteEmptyEle dee = null;
+		String userInfo[][] = null;
+		Map<String, String> roleMap = null;
+		boolean flag = false;
+		
+		//判断role字段格式是否合法
+		reg = new regexStr();
+		flag = reg.checkRole(role);
+		if(!flag) {
+			return null;
+		} else {
+			String demandArr[] = {"userID", "userName", "email", "phone", "gender", "role", "headPortrait"};
+			roleMap = new HashMap<String, String>();
+			roleMap.put("role", role);
+			//查询role类型的用户
+			ud = new UserDao();
+			userInfo = ud.queryUser(roleMap, demandArr, index, lim);
+			
+			//删除值为null的结果
+			dee = new deleteEmptyEle();
+			userInfo = dee.deleteEle(userInfo, demandArr.length);
 		}
 		return userInfo;
 	}

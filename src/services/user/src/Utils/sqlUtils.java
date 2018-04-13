@@ -125,9 +125,9 @@ public class sqlUtils {
 		Set<String> keySet = offerMap.keySet();
 		int size = keySet.size();
 		if(index != 1 || lim != 1) {
-			lim += index-1;
-			//sql_part_2第一种情况:select * from tb_name where userID>=1 and userID<=10
-			sql_part_2 = " where userID >= "+index+" and userID <= "+lim;
+//			lim += index-1;
+			//sql_part_2第一种情况:select * from tb_name limit 1,10
+			sql_part_2 = " limit "+index+","+lim;
 		} else {
 			if(size == 0) {
 				//sql_part_2第二种情况:select * from tb_name
@@ -150,7 +150,7 @@ public class sqlUtils {
 		//拼接sql语句
 		sql = "select "+sql_part_1+" from "+tbName+sql_part_2;
 		System.out.println(sql);
-		//需要返回的数据数组
+//		//需要返回的数据数组
 		String returnArr[][] = new String[lim][length];
 		try {
 			pst = conn.prepareStatement(sql);
@@ -230,7 +230,7 @@ public class sqlUtils {
 //		String checkField[] = {"userName","Liaray"};
 //		int line = su.duplicateChecking("user", checkField);
 //		System.out.println(line);
-//		检查sql语句拼接
+////		检查sql语句拼接
 //		Map<String, String> offerMap = new HashMap<String, String>();
 //		offerMap.put("userName", "Liaray");
 //		offerMap.put("pw", "123456");
@@ -239,7 +239,7 @@ public class sqlUtils {
 //		offerMap.put("gender", "男");
 //		su.update("user", offerMap, "userID", 1);
 //		String demandArr[] = {"userID","phone","email","pw"};
-//		String infoArr[][] =  su.select("user",offerMap, demandArr,1 ,2);
+//		String infoArr[][] =  su.select("user",offerMap, demandArr,3 ,1);
 //		for(String[] info_arr : infoArr) {
 //			for(String info : info_arr) {
 //				System.out.println(info);

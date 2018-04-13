@@ -30,4 +30,7 @@ public interface IUserService {
 	
 	//更改用户角色
 	public String[][] modifyUserRole(int id, String role);
+	
+	//根据角色查询用户
+	public String[][] queryUserByRole(String role, int index, int lim);
 }

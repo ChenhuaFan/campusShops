@@ -81,4 +81,12 @@
     <servlet-name>modifyRole</servlet-name>
     <url-pattern>/modifyRole</url-pattern>
   </servlet-mapping>
+   <servlet>
+    <servlet-name>queryUserByRole</servlet-name>
+    <servlet-class>Servlet.queryUserByRole</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>queryUserByRole</servlet-name>
+    <url-pattern>/queryUserByRole</url-pattern>
+  </servlet-mapping>
 </web-app>
