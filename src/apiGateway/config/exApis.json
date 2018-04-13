@@ -4,16 +4,21 @@
             "/api/1/user/login": {
                 "protocol": "http://",
                 "method": "post",
-                "dependences": [
-                    {
+                "dependences": {
+                    "1": {
                         "service": "user",
-                        "method": "/userLogin"
+                        "method": "/userLogin",
+                        "rely": null
                     },
-                    {
+                    "2": {
                         "service": "token",
-                        "method": "/get"
+                        "method": "/get",
+                        "rely": [1]
+                    },
+                    "result": {
+                        "rely": [2]
                     }
-                ]
+                }
             }
         }
     ]
