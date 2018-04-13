@@ -12,7 +12,6 @@ import Services.ServiceImp.UserService;
 import net.sf.json.JSONException;
 import net.sf.json.JSONObject;
 import Utils.JsonReader;
-import Utils.regexStr;
 
 //@WebServlet("/userLogin")
 public class userLogin extends HttpServlet {
@@ -37,7 +36,6 @@ public class userLogin extends HttpServlet {
         PrintWriter out = null;
         JSONObject json = null;
         UserService us = null;
-        regexStr reg = null;
         String userName="";
         String pw = "";
         String info[][] = null;
@@ -47,8 +45,7 @@ public class userLogin extends HttpServlet {
 	        json = JsonReader.receivePost(request);
 	        //通过JSONObject获得username和pw
         	userName = json.getString("userName");
-        	reg = new regexStr();
-    		pw = json.getString("pw");
+        	pw = json.getString("pw");
     		
     		us = new UserService();
     		//获得用户信息，存入info[][]数组
@@ -58,12 +55,6 @@ public class userLogin extends HttpServlet {
     			JSONObject errorInfo = new JSONObject();
     			errorInfo.put("status", "false");
     			errorInfo.put("info", "the type of username is illegal");
-    			out.println(errorInfo);
-    		} else if(info[0][0] == null) {
-    			//将错误信息存入json对象中
-    			JSONObject errorInfo = new JSONObject();
-    			errorInfo.put("status", "false");
-    			errorInfo.put("info", "wrong username or password");
     			out.println(errorInfo);
     		} else {
     			//将用户信息存入json对象中
@@ -83,8 +74,15 @@ public class userLogin extends HttpServlet {
         } catch (IOException e) {
         	//IO异常
 //			e.printStackTrace();
+		} catch(NumberFormatException e) {
+			//userID不存在
+			JSONObject errorInfo = new JSONObject();
+			errorInfo.put("status", "false");
+			errorInfo.put("info", "wrong username or password");
+			out.println(errorInfo);
 		} finally {
         	out.flush();
+        	out.close();
         }
 	}
 }

@@ -85,13 +85,14 @@ public class userRegister extends HttpServlet {
         		//通过JSONObject获得用户名,密码,手机号,性别失败异常
         		JSONObject errorInfo = new JSONObject();
         		errorInfo.put("status", "false");
-        		errorInfo.put("info", "you did not type in userName, password, phone or gender ");
+        		errorInfo.put("info", "you did not type in userName, password, phone or gender");
         		out.println(errorInfo);
         	} catch (IOException e) {
         		//IO异常
 //			e.printStackTrace();
         	} finally {
-        		out.flush();  
+        		out.flush();
+        		out.close();
         	}
         }
 	}

@@ -12,4 +12,9 @@ public interface IUserService {
 	 * checkField[1]为字段值
 	 * */
 	public int duplicateCheck(String key, String value);
+	//得到用户详细信息
+	public String[][] getUserDetails(int id);
+	
+	//得到用户简略信息
+	public String[][] getUserBrief(int id);
 }

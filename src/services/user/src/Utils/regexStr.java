@@ -22,4 +22,11 @@ public class regexStr {
 		flag = phone.matches("^1([358][0-9]|4[579]|66|7[0135678]|9[89])[0-9]{8}$");
 		return flag;
 	}
+	
+	//验证数字
+	public boolean checkNum(int num) {
+		boolean flag = false;
+		flag = String.valueOf(num).matches("^[0-9]*$ ");
+		return flag;
+	}
 }

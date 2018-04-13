@@ -135,6 +135,41 @@ public class UserService implements IUserService {
 		return count;
 	}
 
-	
+	//得到用户详细信息
+	@Override
+	public String[][] getUserDetails(int id) {
+		//变量声明
+		Map<String, String> userIDMap = null;
+		UserDao ud = null;
+		String detailInfo[][] = null;
+		
+		//存储用户ID
+		userIDMap = new HashMap<String, String>();
+		userIDMap.put("userID", String.valueOf(id));
+		String demandArr[] = {"userID", "userName", "email", "phone", "gender", "role", "headPortrait"};
+		ud = new UserDao();
+		detailInfo = ud.queryUser(userIDMap, demandArr, 1, 1);
+		
+		return detailInfo;
+	}
+
+	//得到用户简略信息
+	@Override
+	public String[][] getUserBrief(int id) {
+		//变量声明
+		Map<String, String> userIDMap = null;
+		UserDao ud = null;
+		String briefInfo[][] = null;
+		
+		//存储用户ID
+		userIDMap = new HashMap<String, String>();
+		userIDMap.put("userID", String.valueOf(id));
+		String demandArr[] = {"userID", "userName", "gender", "role", "headPortrait"};
+		ud = new UserDao();
+		briefInfo = ud.queryUser(userIDMap, demandArr, 1, 1);
+		
+		return briefInfo;
+		
+	}
 
 }

@@ -136,7 +136,13 @@ public class sqlUtils {
 				sql_part_2=" where ";
 				//sql_part_2第三种情况:select * from tb_name where key_1 = value_1 and key_2 = value_2
 				for(String key : keySet) {
-					sql_part_2 += key+"="+"'"+offerMap.get(key)+"' and ";
+					if(key == "userID") {
+						//针对key的字段为int型时
+						sql_part_2 += key+"="+offerMap.get(key)+" and ";
+					} else {
+						//针对key的字段为varchar型时
+						sql_part_2 += key+"="+"'"+offerMap.get(key)+"' and ";
+					}
 				}
 				sql_part_2 = sql_part_2.substring(0, sql_part_2.length()-5);
 			}

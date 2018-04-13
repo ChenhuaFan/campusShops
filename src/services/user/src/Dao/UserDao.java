@@ -40,6 +40,7 @@ public class UserDao {
 		su = new sqlUtils();
 		su.connect();
 		count = su.duplicateChecking("user", duplicateField);
+		su.close();
 		//返回查到的行数
 		return count;
 	}
