@@ -45,4 +45,15 @@ public class regexStr {
 		flag = gender.matches("[男女]");
 		return flag;
 	}
+	
+	public boolean checkRole(String role) {
+		boolean flag = false;
+		System.out.println(role);
+		flag = role.matches("[\buser\bVIP\bsaller\badmin\b]");
+		if(role.equals("user")	 || role.equals("VIP") || role.equals("saller") || role.equals("admin")) {
+			flag = true;
+		}
+		System.out.println(flag);
+		return flag;
+	}
 }

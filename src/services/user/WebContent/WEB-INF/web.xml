@@ -50,11 +50,35 @@
     <url-pattern>/getBrief</url-pattern>
   </servlet-mapping>
   <servlet>
-  	<servlet-name>modifyEssential</servlet-name>
-  	<servlet-class>Servlet.modifyEssentialInfo</servlet-class>
+    <servlet-name>modifyEssential</servlet-name>
+    <servlet-class>Servlet.modifyEssentialInfo</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>modifyEssential</servlet-name>
     <url-pattern>/modifyEssentialInfo</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>modifyUserName</servlet-name>
+    <servlet-class>Servlet.modifyUserName</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>modifyUserName</servlet-name>
+    <url-pattern>/modifyUserName</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>modifyPw</servlet-name>
+    <servlet-class>Servlet.modifyPassword</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>modifyPw</servlet-name>
+    <url-pattern>/modifyPassword</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>modifyRole</servlet-name>
+    <servlet-class>Servlet.modifyRole</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>modifyRole</servlet-name>
+    <url-pattern>/modifyRole</url-pattern>
   </servlet-mapping>
 </web-app>

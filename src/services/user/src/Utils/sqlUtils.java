@@ -161,6 +161,7 @@ public class sqlUtils {
 					returnArr[i][j]=rs.getString(j+1);
 				}
 				i++;
+				
 //			System.out.println("id:"+rs.getString(1)+"\nphone:"+rs.getString(2)+"\nemail:"+rs.getString(3));
 			}
 		} catch (SQLException e) {

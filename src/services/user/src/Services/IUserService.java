@@ -21,4 +21,13 @@ public interface IUserService {
 	
 	//根据ID获得认证信息
 	public String[][] getIdentifyByID(int id);
+	
+	//更改用户名
+	public String[][] modifyUserName(int id, String userName);
+	
+	//更改用户密码
+	public String[][] modifyUserPassword(int id, String pw);
+	
+	//更改用户角色
+	public String[][] modifyUserRole(int id, String role);
 }

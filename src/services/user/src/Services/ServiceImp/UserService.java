@@ -23,7 +23,7 @@ public class UserService implements IUserService {
 		reg = new regexStr();
 		//userName字段防sql注入
 		if(reg.checkUserName(userName)) {
-			String demandArr[] = {"userID","userName","role","headPortrait"};
+			String demandArr[] = {"userID","userName","role","headPortrait", "isActive", "isDelete"};
 			String pw_sha256="";
 			//用户密码sha256加密
 			sha256 = new sha256Util();
@@ -35,8 +35,22 @@ public class UserService implements IUserService {
 			//调用UserDao层
 			ud = new UserDao();
 			userInfo = ud.queryUser(userAndPw, demandArr, 1, 1);
-			return userInfo;
-			
+			//isActive字段为0
+			try {
+				if(userInfo[0][4].equals("0")) {
+					userInfo[0][0] = "freeze";
+					return userInfo;
+				} else if (userInfo[0][5].equals("1")) {//isDelete字段为1
+					userInfo[0][0] = "deleted";
+					return userInfo;
+				} else {
+					return userInfo;
+				}
+			} catch(NullPointerException e) {
+				//未认证成功
+				userInfo[0][0] = "wrong";
+				return userInfo;
+			}
 		} else {
 			return null;
 		}
@@ -99,7 +113,12 @@ public class UserService implements IUserService {
 		
 	}
 
-	//用户特征字段查重
+	/*
+	 * 用户特征字段合法性判断和查重
+	 * 若字段格式不合法，返回2
+	 * 若特征字段重复返回1
+	 * 正常返回0
+	 * */
 	@Override
 	public int duplicateCheck(String key, String value) {
 		//变量声明
@@ -126,9 +145,6 @@ public class UserService implements IUserService {
 			if(!flag) {
 				return 2;
 			}
-		} else {
-			reg = new regexStr();
-			
 		}
 		
 		//调用UserDao
@@ -208,7 +224,6 @@ public class UserService implements IUserService {
 		}
 		//是否提交了headPortrait字段
 		if(headPortrait != "") {
-			System.out.println("..");
 			updateMap.put("headPortrait", headPortrait);
 		}
 		//若前台无任何信息修改
@@ -242,4 +257,88 @@ public class UserService implements IUserService {
 			return identifyInfo;
 	}
 
+	//更改用户名
+	@Override
+	public String[][] modifyUserName(int id, String userName) {
+		//变量声明
+		UserService us = null;
+		UserDao ud = null;
+		Map<String, String> userNameMap = null;
+		String userInfo[][] = null;
+		int result = 1, line;
+		
+		us = new UserService();
+		//格式合法判断和查重
+		result = us.duplicateCheck("userName", userName);
+		if(result == 0) {
+			userNameMap = new HashMap<String, String>();
+			userNameMap.put("userName", userName);
+			ud = new UserDao();
+			//更新userName
+			line = ud.updateInfo(userNameMap, id);
+			//更新成功，返回用户身份信息
+			if(line == 1) {
+				userInfo = us.getIdentifyByID(id);
+				return userInfo;
+			}
+		}
+		return userInfo;
+	}
+
+	//更改用户密码
+	@Override
+	public String[][] modifyUserPassword(int id, String pw) {
+		//变量声明
+		UserService us = null;
+		UserDao ud = null;
+		sha256Util sha256 = null;
+		Map<String, String> pwMap = null;
+		String userInfo[][] = null;
+		int line;
+		
+		//对密码进行sha256加密
+		sha256 = new sha256Util();
+		pw = sha256.getSHA256StrJava(pw);
+		pwMap = new HashMap<String, String>();
+		pwMap.put("pw", pw);
+		
+		ud = new UserDao();
+		//更新密码
+		line = ud.updateInfo(pwMap, id);
+		//更新成功，返回用户身份信息
+		if(line == 1) {
+			us = new UserService();
+			userInfo = us.getIdentifyByID(id);
+			return userInfo;
+		}
+		return userInfo;
+	}
+
+	////更改用户角色
+	@Override
+	public String[][] modifyUserRole(int id, String role) {
+		//变量声明
+		UserService us = null;
+		UserDao ud = null;
+		regexStr reg = null;
+		Map<String, String> roleMap = null;
+		String userInfo[][] = null;
+		int line;
+		
+		//判断role字段是否合法
+		reg = new regexStr();
+		if(reg.checkRole(role)) {
+			roleMap = new HashMap<String, String>();
+			roleMap.put("role", role);
+			ud = new UserDao();
+			line = ud.updateInfo(roleMap, id);
+			//更新成功，返回身份信息
+			if(line == 1) {
+				us = new UserService();
+				userInfo = us.getIdentifyByID(id);
+				return userInfo;
+			}
+		}
+		return userInfo;
+	}
 }

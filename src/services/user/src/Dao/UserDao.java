@@ -52,11 +52,10 @@ public class UserDao {
 		int count = 0;
 		su = new sqlUtils();
 		su.connect();
-		
-		
+		//更新
 		count = su.update("user", updateMap, "userID", userID);
 		su.close();
-		
+		//更新的行数
 		return count;
 		
 	}
