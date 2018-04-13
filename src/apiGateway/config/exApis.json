@@ -1,0 +1,20 @@
+{
+    "apis": [
+        {
+            "/api/1/user/login": {
+                "protocol": "http://",
+                "method": "post",
+                "dependences": [
+                    {
+                        "service": "user",
+                        "method": "/userLogin"
+                    },
+                    {
+                        "service": "token",
+                        "method": "/get"
+                    }
+                ]
+            }
+        }
+    ]
+}
