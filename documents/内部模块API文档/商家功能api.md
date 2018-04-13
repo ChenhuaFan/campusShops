@@ -39,8 +39,8 @@
         "shopId":1,
         "shopName":"xxx",
         "shopRank":5,
-        "shopPicture":"picture.jpg"
-        "isOpen":0;
+        "shopPicture":"picture.jpg",
+        "isOpen":0
         
     }      
     //未提供足够参数
@@ -79,13 +79,13 @@
         "shopAddress":"512",
         "shopPhoneNumber":"13955556666",
         "shopRank":5,
-        "shopPicture":"picture.jpg"
+        "shopPicture":"picture.jpg",
         "isOpen":1
     }     
        //用户id不存在 
     {
         "status":flase,
-        "info":wrong disaplay
+        "info":"wrong disaplay"
     } 
 ```
  ### 3.修改商家信息
@@ -126,12 +126,12 @@
         "shopPhoneNumber":"13955556666",
         "shopPicture":"picture.jpg",
         "shopRank":5,
-        "isOpen":0;
+        "isOpen":0
     }      
        //用户id无法修改
     {
         "status":flase,
-        "info":"the shopId can not modify information"
+        "info":"the shopId can not modify ,information"
     }
 ```
 
@@ -172,14 +172,14 @@
         "shopAddress":"513",
         "shopPhoneNumber":"13955556666",
         "shopRank":5,
-        "shopPicture":"picture.jpg"
-        "isOpen":0;
+        "shopPicture":"picture.jpg",
+        "isOpen":0
         
     }  
        //未提供足够参数
     {
         "status":flase,
-        "info":can not add shop
+        "info":"can not add shop"
     }    
 ```
 
@@ -215,9 +215,9 @@
         "shopAddress":"512",
         "shopPhoneNumber":"13955556666",
         "shopRank":5,
-        "shopPicture":"Picture.jpg"
-        "isOpen":0;
-        "isDelete":1,
+        "shopPicture":"Picture.jpg",
+        "isOpen":0,
+        "isDelete":1
     }      
        //id不存在
     {
@@ -225,25 +225,27 @@
         "info":shopId can not found and can not delete
     }
 ```
-### 5.修改是否营业
+### 5.修改营业状态
 >//内部访问地址如下
  "http://myhost:port/shop/shopOpen"
 
 |字段|格式|含义|必填|
  |-|-|-|-|
- |id|int|商家id|是
+ |id|int|商家id|是|
+ |open|int|营业状态|是|
  ### 返回值说明
  |字段|含义|
- isOpen|0代表未营业，1代表营业|
+ |-|-|
+ |isOpen|0代表未营业，1代表营业|
 ```
-    //样例说明
+    //样例说明，当open为1时为营业
     {
-        "isOpen":0
+        "isOpen":1
     }
         //id不存在
     {
         "status":flase,
-        "info":shopId can not found and can not open
+        "info":"shopId can not found and can not open"
     }
 ```
  ### 6.审核商家
@@ -253,14 +255,15 @@
  |字段|格式|含义|必填|
  |-|-|-|-|
  |id|int|商家id|是|
+ |verify|int|商家审核状态|是|
   ### 返回值说明
  |字段|含义|
  |-|-|
  |isVerify|0代表未通过审核，1代表通过审核|
 ```
-    //样例说明
+    //样例说明，当verify为1时，通过审核
     {
-        "isVerify":0
+        "isVerify":1
     }
         //id不存在
     {
@@ -275,7 +278,8 @@
 
  |字段|格式|含义|必填|
  |-|-|-|-|
- |id|int|商家id|是
+ |id|int|商家id|是|
+ |rank|int|商家评级分|是|
  ### 返回值说明
  |字段|含义|
  |-|-|
