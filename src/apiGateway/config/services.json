@@ -1,9 +1,8 @@
 {
-    "services": [
-        {
-            "name": "token",
+    "services": {
+        "token": {
             "url": "127.0.0.1",
-            "port": 3030,
+            "port": 3031,
             "apis": [
                 {
                     "/get": {
@@ -37,8 +36,7 @@
                 }
             ]
         },
-        {
-            "name": "user",
+        "user": {
             "url": "127.0.0.1",
             "port": 3031,
             "apis":[
@@ -64,5 +62,5 @@
                 }
             ]
         }
-    ]
+    }
 }

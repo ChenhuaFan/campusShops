@@ -9,7 +9,7 @@ const crypto = require('crypto');
 app.use(koaBody());
 
 const getCrypto = (type, key) => {
-    return crypto.createHmac(type, key);
+    return crypto.createHmac('sha256', key);
 }
 
 const authGet = async ctx => {

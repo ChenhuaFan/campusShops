@@ -8,6 +8,8 @@ let conf = require('./config/default');
 const fs = require('fs');
 const path=require('path');
 
+// 解析请求参数
+app.use(koaBody());
 
 // 读取 services.json & exApis.json
 // 使用 path.join 构建配置文件路径
@@ -15,7 +17,7 @@ let services = JSON.parse(fs.readFileSync(__dirname + "/config/services.json"));
 let exApis = JSON.parse(fs.readFileSync(__dirname + "/config/exApis.json"));
 
 // 网关初始化
-const initServer = () => {
+const initServices = () => {
     // 根据 exApis 为每个api生成路由函数
     let apiArry = exApis.apis;
     let tempApi = "";
@@ -29,16 +31,21 @@ const initServer = () => {
                 bff: ctx => {
                     const body = ctx.request.body;
                     // 生成请求依赖链
-                    
+                    ctx.response.status = 200;
+                    ctx.response.type = 'json';
+                    ctx.response.body = {
+                        info: body
+                    };
                 }
             }
         }
     }
     //遍历注册所有路由
-    console.log(a);
     for (let temU in a) {
-        if (a[temU].method == "post")
+        if (a[temU].method == "post") {
+            console.log(a[temU]);
             app.use(route.post(temU, a[temU].bff));
+        }
         else
             app.use(route.get(temU, a[temU].bff));
     }
@@ -119,8 +126,12 @@ app.on('error', (err) => {
     console.log(err);
 });
 
-initServer();
-
+// 初始化服务
+// initServices();
+const userLogin = require('./bff/userLogin').userLogin;
+console.log("aaa");
+app.use(route.post('/api/1/user/login', (ctx, services) => userLogin));
+console.log("bbb");
 // 注册中间件
 // 注册表单表单数据处理
 app.use(koaBody());
@@ -128,6 +139,30 @@ app.use(koaBody());
 app.use(handler);
 // 注册路由
 app.use(route.get('/', web));
+
+app.use(route.post('/userLogin', ctx => {
+
+    console.log("test route ok!");
+
+    const body = ctx.request.body;
+    if(body.userName == "sam" && body.pw == "123456") {
+        ctx.response.status = 200;
+        ctx.response.type = 'json';
+        ctx.response.body = {
+            "userId": 1,
+            "userName": body.userName,
+            "role": "user",
+            "headPortrait": "default.png"
+        };
+    } else {
+        ctx.response.status = 403;
+        ctx.response.type = 'json';
+        ctx.response.body = {
+            "status": false,
+            "info": "wrong pw or userName"
+        };
+    }
+}))
 
 // 启动服务器
 app.listen(3031);
