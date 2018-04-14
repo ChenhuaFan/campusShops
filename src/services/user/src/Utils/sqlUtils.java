@@ -6,7 +6,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
@@ -54,7 +53,6 @@ public class sqlUtils {
 		} catch (SQLException e) {
 			String errorMsg = "Failed to connect MySql!";
 			System.out.println(errorMsg);
-//			e.printStackTrace();
 		}
 	}
 	public void close() {
@@ -84,7 +82,14 @@ public class sqlUtils {
 	//检查数据库是否有重复字段
 	public int duplicateChecking(String tbName, String duplicateField[]) {
 		int line = 0;
-		String sql = "select count("+duplicateField[0]+") from "+tbName+" where "+duplicateField[0]+" = '"+duplicateField[1]+"'";
+		String sql = "";
+		if(duplicateField[0].equals("userID")) {
+			//int型
+			sql = "select count("+duplicateField[0]+") from "+tbName+" where "+duplicateField[0]+" = "+duplicateField[1];
+		} else {
+			//varchar型
+			sql = "select count("+duplicateField[0]+") from "+tbName+" where "+duplicateField[0]+" = '"+duplicateField[1]+"'";
+		}
 		try {
 			pst = conn.prepareStatement(sql);
 			rs = pst.executeQuery();
@@ -93,7 +98,6 @@ public class sqlUtils {
 				line = rs.getInt(1);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -122,19 +126,21 @@ public class sqlUtils {
 			sql_part_1 += demandArr[length-1];
 		}
 		
-		Set<String> keySet = offerMap.keySet();
-		int size = keySet.size();
-		if(index != 1 || lim != 1) {
-//			lim += index-1;
+		if(offerMap == null) {
 			//sql_part_2第一种情况:select * from tb_name limit 1,10
 			sql_part_2 = " limit "+index+","+lim;
 		} else {
+			Set<String> keySet = offerMap.keySet();
+			int size = keySet.size();
 			if(size == 0) {
-				//sql_part_2第二种情况:select * from tb_name
+				//sql_part_2第三种情况:select * from tb_name
 				sql_part_2 = "";
 			} else {
-				sql_part_2=" where ";
-				//sql_part_2第三种情况:select * from tb_name where key_1 = value_1 and key_2 = value_2
+				sql_part_2 += " where ";
+				/*sql_part_2第四、五种情况:
+				 * ①select * from tb_name where key_1 = value_1 and key_2 = value_2
+				 * ②select * from tb_name limit 1,10 where key_1 = value_1 and key_2 = value_2
+				 * */
 				for(String key : keySet) {
 					if(key == "userID") {
 						//针对key的字段为int型时
@@ -146,10 +152,15 @@ public class sqlUtils {
 				}
 				sql_part_2 = sql_part_2.substring(0, sql_part_2.length()-5);
 			}
+			if(index != 1 && lim != 1) {
+				//sql_part_2第二种情况:select * from tb_name limit 1,10
+				sql_part_2 += " limit "+index+","+lim;
+			} 
+			
+			
 		}
 		//拼接sql语句
 		sql = "select "+sql_part_1+" from "+tbName+sql_part_2;
-		System.out.println(sql);
 //		//需要返回的数据数组
 		String returnArr[][] = new String[lim][length];
 		try {
@@ -161,8 +172,6 @@ public class sqlUtils {
 					returnArr[i][j]=rs.getString(j+1);
 				}
 				i++;
-				
-//			System.out.println("id:"+rs.getString(1)+"\nphone:"+rs.getString(2)+"\nemail:"+rs.getString(3));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -199,7 +208,6 @@ public class sqlUtils {
 	}
 	
 	public int update(String tbName, Map<String, String> updateInfo, String indexField, int id) {
-		//UPDATE Person SET FirstName = 'Fred' WHERE LastName = 'Wilson' 
 		String sql_part_1 = "";
 		String sql_part_2 = "";
 		String sql = "";
@@ -213,7 +221,6 @@ public class sqlUtils {
 		sql_part_2 = " "+indexField+" = "+id;
 		
 		sql = "update "+tbName+" set"+sql_part_1+" where"+sql_part_2;
-		System.out.println(sql);
 		try {
 			pst = conn.prepareStatement(sql);
 			line = pst.executeUpdate();
@@ -224,26 +231,4 @@ public class sqlUtils {
 		return line;
 		
 	}
-//	public static void main(String[] args) {
-//		sqlUtils su = new sqlUtils();
-//		su.connect();
-//		String checkField[] = {"userName","Liaray"};
-//		int line = su.duplicateChecking("user", checkField);
-//		System.out.println(line);
-////		检查sql语句拼接
-//		Map<String, String> offerMap = new HashMap<String, String>();
-//		offerMap.put("userName", "Liaray");
-//		offerMap.put("pw", "123456");
-//		offerMap.put("phone", "18155925262");
-//		offerMap.put("email", "1107325513@qq.com");
-//		offerMap.put("gender", "男");
-//		su.update("user", offerMap, "userID", 1);
-//		String demandArr[] = {"userID","phone","email","pw"};
-//		String infoArr[][] =  su.select("user",offerMap, demandArr,3 ,1);
-//		for(String[] info_arr : infoArr) {
-//			for(String info : info_arr) {
-//				System.out.println(info);
-//			}
-//		}
-//	}
 }

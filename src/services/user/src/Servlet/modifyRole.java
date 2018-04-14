@@ -70,6 +70,14 @@ public class modifyRole extends HttpServlet {
 			errorInfo.put("status", "false");
 			errorInfo.put("info", e.getMessage());
 			out.println(errorInfo);
+		} catch(NumberFormatException e) {
+			JSONObject errorInfo = new JSONObject();
+			errorInfo.put("status", "false");
+			errorInfo.put("info", e.getMessage());
+			out.println(errorInfo);
+		} finally {
+			out.flush();
+			out.close();
 		}
 	}
 

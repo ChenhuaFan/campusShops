@@ -49,7 +49,7 @@ public class regexStr {
 	public boolean checkRole(String role) {
 		boolean flag = false;
 		flag = role.matches("[\buser\bVIP\bsaller\badmin\b]");
-		if(role.equals("user") || role.equals("VIP") || role.equals("saller") || role.equals("admin")) {
+		if(role.equals("user") || role.equals("vip") || role.equals("saller") || role.equals("admin")) {
 			flag = true;
 		}
 		return flag;

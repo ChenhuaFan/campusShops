@@ -44,7 +44,7 @@ public class getBrief extends HttpServlet {
 			json = JsonReader.receivePost(request);
 			id = json.getInt("id");
 			us = new UserService();
-			briefInfo = us.getUserDetails(id);
+			briefInfo = us.getUserBrief(id);
 			if(briefInfo == null) {
 				JSONObject errorInfo = new JSONObject();
 				errorInfo.put("status", "false");
@@ -67,6 +67,11 @@ public class getBrief extends HttpServlet {
 			e.printStackTrace();
 		} catch (JSONException e) {
 			//获取json异常时返回错误信息
+			JSONObject errorInfo = new JSONObject();
+			errorInfo.put("status", "false");
+			errorInfo.put("info", e.getMessage());
+			out.println(errorInfo);
+		} catch(NumberFormatException e) {
 			JSONObject errorInfo = new JSONObject();
 			errorInfo.put("status", "false");
 			errorInfo.put("info", e.getMessage());
