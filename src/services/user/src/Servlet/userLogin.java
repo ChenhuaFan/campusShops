@@ -99,7 +99,7 @@ public class userLogin extends HttpServlet {
 			//userID不存在
 			JSONObject errorInfo = new JSONObject();
 			errorInfo.put("status", "false");
-			errorInfo.put("info", "wrong username or password");
+			errorInfo.put("info", e.getMessage());
 			out.println(errorInfo);
 		} finally {
         	out.flush();

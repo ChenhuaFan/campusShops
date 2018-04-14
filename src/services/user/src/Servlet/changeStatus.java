@@ -13,11 +13,11 @@ import Utils.JsonReader;
 import net.sf.json.JSONException;
 import net.sf.json.JSONObject;
 
-//@WebServlet("/modifyPassword")
-public class modifyPassword extends HttpServlet {
+//@WebServlet("/changeStatus")
+public class changeStatus extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public modifyPassword() {
+    public changeStatus() {
         super();
     }
 
@@ -36,41 +36,39 @@ public class modifyPassword extends HttpServlet {
         PrintWriter out = null;
         JSONObject json = null;
         UserService us = null;
-        int id;
-        String pw = "";
+        int userID;
         String info[][] = null;
         
         try {
-        	out = response.getWriter();
-        	json = JsonReader.receivePost(request);
-        	id = json.getInt("id");
-        	pw = json.getString("pw");
-        	us = new UserService();
-        	info = us.modifyUserPassword(id, pw);
-        	if(info == null) {
-        		//获取json异常时返回错误信息
-    			JSONObject errorInfo = new JSONObject();
-    			errorInfo.put("status", "false");
-    			errorInfo.put("info", "the userID is not exist");
-    			out.println(errorInfo);
-        	} else {
-        		//将用户信息存入json对象中
-    			JSONObject userInfo = new JSONObject();
-    			userInfo.put("userID", Integer.parseInt(info[0][0]));
-    			userInfo.put("userName", info[0][1]);
-    			userInfo.put("role", info[0][2]);
-    			userInfo.put("headPortrait", info[0][3]);
-    			out.println(userInfo);
-        	}
-        } catch(IOException e) {
-        	e.printStackTrace();
-        } catch(JSONException e) {
-        	//获取json异常时返回错误信息
+			out = response.getWriter();
+			json = JsonReader.receivePost(request);
+			userID = json.getInt("id");
+			us = new UserService();
+			info = us.changeStatus(userID);
+			if(info == null) {
+				//ID不存在
+				JSONObject errorInfo = new JSONObject();
+				errorInfo.put("status", "false");
+				errorInfo.put("info", "the userID is not exist");
+				out.println(errorInfo);
+			} else {
+				JSONObject userinfo = new JSONObject();
+				userinfo.put("userID", Integer.parseInt(info[0][0]));
+				userinfo.put("userName", info[0][1]);
+				userinfo.put("role", info[0][2]);
+				userinfo.put("isActive", Integer.parseInt(info[0][3]));
+				out.println(userinfo);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (JSONException e) {
+			//ID不合法
 			JSONObject errorInfo = new JSONObject();
 			errorInfo.put("status", "false");
 			errorInfo.put("info", e.getMessage());
 			out.println(errorInfo);
-        } catch(NumberFormatException e) {
+		} catch(NumberFormatException e) {
+			//userID不存在
 			JSONObject errorInfo = new JSONObject();
 			errorInfo.put("status", "false");
 			errorInfo.put("info", e.getMessage());

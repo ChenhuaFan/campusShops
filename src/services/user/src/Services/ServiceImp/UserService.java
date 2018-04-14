@@ -77,7 +77,6 @@ public class UserService implements IUserService {
 		if(!(reg.checkUserName(userName) && reg.checkEmail(email) && reg.checkPhone(phone))) {
 			return null;
 		} else {
-			//用户名是否存在
 			
 			//实例化自身对象
 			us = new UserService();
@@ -372,6 +371,92 @@ public class UserService implements IUserService {
 			dee = new deleteEmptyEle();
 			userInfo = dee.deleteEle(userInfo, demandArr.length);
 		}
+		return userInfo;
+	}
+
+	//删除用户
+	@Override
+	public String[][] deleteUser(int id) {
+		//变量声明
+		UserDao ud = null;
+		Map<String, String> deleteMap = null;
+		String userInfo[][] = null;
+		int line;
+		
+		ud = new UserDao();
+		deleteMap = new HashMap<String, String>();
+		deleteMap.put("isDelete", "1");
+		line = ud.updateInfo(deleteMap, id);
+		if(line == 1) {
+			String demandArr[] = {"userID", "userName", "role", "isDelete"};
+			Map<String, String> idMap = new HashMap<String, String>();
+			idMap.put("userID", String.valueOf(id));
+			userInfo = ud.queryUser(idMap, demandArr, 1, 1);
+			return userInfo;
+		}
+		return null;
+	}
+
+	//更改用户状态
+	@Override
+	public String[][] changeStatus(int id) {
+		//变量声明
+		UserDao ud = null;
+		Map<String, String> statusMap = null;
+		String userInfo[][] = null;
+		int line;
+		
+		//判断ID是否存在
+		String idFiled[] = {"userID", String.valueOf(id)};
+		ud = new UserDao();
+		line = ud.fieldRecheck(idFiled);
+		if(line == 0) {//不存在的情况
+			return userInfo;
+		} else {//ID存在,查询用户当前status
+			Map<String, String> idMap = new HashMap<String, String>();
+			String demandArr[] = {"userID", "userName", "role", "isActive"};
+			idMap.put("userID", String.valueOf(id));
+			userInfo = ud.queryUser(idMap, demandArr, 1, 1);
+			System.out.println(userInfo[0][3]);
+			if(userInfo[0][3].equals("0")) {//用户当前为未激活状态
+				statusMap = new HashMap<String, String>();
+				statusMap.put("isActive", "1");
+				line = ud.updateInfo(statusMap, id);
+				if(line == 1) {
+					userInfo[0][3] = "1";
+					return userInfo;
+				}
+			} else if(userInfo[0][3].equals("1")) {//用户当前为激活状态
+				statusMap = new HashMap<String, String>();
+				statusMap.put("isActive", "0");
+				line = ud.updateInfo(statusMap, id);
+				if(line == 1) {
+					userInfo[0][3] = "0";
+					return userInfo;
+				}
+			}
+		}
+		
+		return null;
+	}
+
+	//获得所有用户信息
+	@Override
+	public String[][] getAllUser(int index, int lim) {
+		//变量声明
+		UserDao ud = null;
+		deleteEmptyEle dee = null;
+		String userInfo[][] = null;
+		Map<String, String> nullMap = null;
+		
+		String demandArr[] = {"userID", "userName", "email", "phone", "role", "gender", "isActive", "isDelete", "headPortrait"};
+		ud = new UserDao();
+		userInfo = ud.queryUser(nullMap, demandArr, index, lim);
+		
+		//删除值为null的结果
+		dee = new deleteEmptyEle();
+		userInfo = dee.deleteEle(userInfo, demandArr.length);
+		
 		return userInfo;
 	}
 }

@@ -33,4 +33,13 @@ public interface IUserService {
 	
 	//根据角色查询用户
 	public String[][] queryUserByRole(String role, int index, int lim);
+	
+	//删除用户
+	public String[][] deleteUser(int id);
+	
+	//更改用户状态
+	public String[][] changeStatus(int id);
+	
+	//获得所有用户信息
+	public String[][] getAllUser(int index, int lim);
 }
