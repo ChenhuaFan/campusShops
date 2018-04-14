@@ -8,7 +8,7 @@ const crypto = require('crypto');
 
 app.use(koaBody());
 
-const getCrypto = (type, key) => {
+const getCrypto = (key) => {
     return crypto.createHmac('sha256', key);
 }
 
@@ -38,7 +38,7 @@ const authGet = async ctx => {
     //built secret
     header = base64url(JSON.stringify(header));
     payload = base64url(JSON.stringify(payload));
-    let hamc = getCrypto(tokenExp.header.alg, tokenExp.secret);
+    let hamc = getCrypto(tokenExp.secret);
     hamc.update(`${header}.${payload}`);
     secret = hamc.digest('hex');
     token = `${header}.${payload}.${secret}`;
@@ -74,7 +74,7 @@ const authUpdate = ctx => {
     payload["nbf"] = curTime;
     payload = base64url(JSON.stringify(payload));
     // built secret
-    hamc = getCrypto(tokenExp.header.alg, tokenExp.secret);
+    hamc = getCrypto(tokenExp.secret);
     hamc.update(`${header}.${payload}`);
     secret = hamc.digest('hex');
     token = `${header}.${payload}.${secret}`;
