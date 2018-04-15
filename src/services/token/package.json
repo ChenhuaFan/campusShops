@@ -9,14 +9,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "base64url": "^2.0.0",
     "fs.promised": "^3.0.0",
     "jsonwebtoken": "^8.2.1",
     "koa": "^2.3.0",
     "koa-body": "^2.3.0",
-    "koa-compose": "^4.0.0",
-    "koa-jwt": "^3.3.1",
-    "koa-route": "^3.2.0",
-    "koa-static": "^4.0.1"
+    "koa-route": "^3.2.0"
   }
 }
