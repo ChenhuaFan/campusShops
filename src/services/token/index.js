@@ -44,7 +44,6 @@ const tokenUpdate = ctx => {
     //解密token
     jwt.verify(token, secret, function (err, decoded) {
         if (!err){
-            console.log(decoded);  //会输出123，如果过了60秒，则有错误。
             //update
             delete decoded['iat'];
             delete decoded['exp'];
