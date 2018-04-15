@@ -16,7 +16,7 @@ let getUrl = (url, query) => {
 };
 
 module.exports = {
-    userLogin: async (ctx, services) => {
+    userLogin: (ctx, services) => {
         // 得到参数
         const body = ctx.request.body;
         console.log("111");
@@ -40,7 +40,7 @@ module.exports = {
         for (param in userLogin.optionalBody) {
             temBody[param] = body[param];
         }
-        let firstRes = await postUrl(temUrl, temBody);
+        let firstRes = postUrl(temUrl, temBody);
         console.log(firstRes);
         ctx.response.body = {
             "a": firstRes

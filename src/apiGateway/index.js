@@ -128,10 +128,7 @@ app.on('error', (err) => {
 
 // 初始化服务
 // initServices();
-const userLogin = require('./bff/userLogin').userLogin;
-console.log("aaa");
-app.use(route.post('/api/1/user/login', (ctx, services) => userLogin));
-console.log("bbb");
+
 // 注册中间件
 // 注册表单表单数据处理
 app.use(koaBody());
@@ -165,4 +162,4 @@ app.use(route.post('/userLogin', ctx => {
 }))
 
 // 启动服务器
-app.listen(3031);
+app.listen(3032);
