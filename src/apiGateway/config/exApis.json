@@ -1,0 +1,46 @@
+{
+    "apis": [
+        {
+            "/api/1/user/login": {
+                "protocol": "http://",
+                "method": "post",
+                "dependences": {
+                    "1": {
+                        "service": "user",
+                        "method": "/userLogin",
+                        "rely": null
+                    },
+                    "2": {
+                        "service": "token",
+                        "method": "/get",
+                        "rely": [1]
+                    },
+                    "result": {
+                        "rely": [2]
+                    }
+                }
+            }
+        },
+        {
+            "/api/1/user/register": {
+                "protocol": "http://",
+                "method": "post",
+                "dependences": {
+                    "1": {
+                        "service": "user",
+                        "method": "/userRejester",
+                        "rely": null
+                    },
+                    "2": {
+                        "service": "token",
+                        "method": "/get",
+                        "rely": [1]
+                    },
+                    "result": {
+                        "rely": [2]
+                    }
+                }
+            }
+        }
+    ]
+}
