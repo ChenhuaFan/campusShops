@@ -90,5 +90,5 @@ app.use(route.post('/test'), ctx => {
     };
 });
 
-// 启动服务器
+// apigw 启动服务器
 app.listen(5510);
