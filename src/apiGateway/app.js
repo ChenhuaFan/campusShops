@@ -77,7 +77,7 @@ app.use(handler);
 app.use(route.get('/', web));
 
 // 测试，注册内部api接口
-const token = require('../services/token');
+const token = require('./services/token');
 app.use(route.post('/test'), ctx => {
     let req = {};
     req.body = ctx.request.body;
