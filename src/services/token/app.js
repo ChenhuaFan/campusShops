@@ -90,4 +90,4 @@ app.use(route.post('/token/update', tokenUpdate));
 app.use(route.post('/token/getSecret', getSecret));
 
 // token 监听服务
-app.listen(5511);
+module.exports = app;

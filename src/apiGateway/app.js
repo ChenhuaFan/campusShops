@@ -91,4 +91,4 @@ app.use(route.post('/test'), ctx => {
 });
 
 // apigw 启动服务器
-app.listen(5510);
+module.exports = app;
