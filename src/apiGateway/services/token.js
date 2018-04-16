@@ -8,8 +8,9 @@ module.exports = {
         const header = req.header == undefined ? conf.requestHeader : req.header;
         const body = req.body;
         // here is request fun;
-        const result = await request.post(`${token.url}:${token.port}`, header, body);
-        return result;
+        console.log(`${token.url}:${token.port}`);
+        let result = await request.post(`http://${token.url}:${token.port}/token/get`, header, body);
+        return result.body;
     },
     'update': async req => {
         

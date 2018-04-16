@@ -1,22 +1,16 @@
 const superagent = require('superagent');
 
 module.exports = {
-    'post': (url, header, body) => {
-        superagent
-            .post(url)
-            .send(body)
+    'post': async (url, header, body) => {
+        return await superagent
+            .post('http://localhost:5000/token/get')
             .set(header)
-            .end(res => {
-                return res;
-            });
+            .send(body)
     },
-    'get': (url, header, query) => {
-        superagent
+    'get': async (url, header, query) => {
+        return await superagent
             .get(url)
             .query(query)
             .set(header)
-            .end(res => {
-                return res;
-            });
     }
 }

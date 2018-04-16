@@ -4,6 +4,7 @@ const route = require('koa-route');
 const koaBody = require('koa-body');
 const radis = require('radis');
 const jwt = require('jsonwebtoken');
+const token = require('./services/token');
 
 // 解析请求参数
 app.use(koaBody());
@@ -59,35 +60,28 @@ const web = ctx => {
     ctx.response.body = "Hello world!";
 };
 
-// 全局err监控
-app.on('error', (err) => {
-    console.log('info: ' + err.message);
-    console.log(err);
-});
-
 // 初始化服务
 // initServices();
 
-// 注册中间件
-// 注册表单表单数据处理
-app.use(koaBody());
 // 注册错误处理
 app.use(handler);
 // 注册路由
 app.use(route.get('/', web));
 
 // 测试，注册内部api接口
-const token = require('./services/token');
-app.use(route.post('/test'), ctx => {
+app.use(route.post('/test', async ctx => {
     let req = {};
     req.body = ctx.request.body;
-    let res = token.get(req);
-    console.log(res);
+    let res = await token.get(req);
     ctx.response.status = 200;
     ctx.response.type = 'json';
-    ctx.response.body = {
-        'a': res
-    };
+    ctx.response.body = res;
+}));
+
+// 全局err监控
+app.on('error', (err) => {
+    console.log('info: ' + err.message);
+    console.log(err);
 });
 
 // apigw 启动服务器
