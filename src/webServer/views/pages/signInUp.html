@@ -5,12 +5,12 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-    <link type="text/css" href="../static/bootstrap-3.3.5-dist/css/bootstrap.min.css" rel="stylesheet">
+    <link type="text/css" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
-      <script src="../static/bootstrap-3.3.5-dist/html5shiv.min.js"></script>
-      <script src="../static/bootstrap-3.3.5-dist/respond.min.js"></script>
+      <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     <link rel="shortcut icon" href="photos/favicon.ico"/>
     <link rel="bookmark" href="photos/favicon.ico"/>
@@ -60,7 +60,7 @@
                    <input class="form-control input-style" type="text" name="un" placeholder="账号" onfocus="NoBlank(this)" onkeyup="NoBlank(this)" onblur="NoBlank(this)">
                    <input class="form-control input-style" type="password" name="pw" placeholder="密码" onfocus="NoBlank(this)" onkeyup="NoBlank(this)" onblur="NoBlank(this)">
                    <input id="checkCode" class="form-control input-style" type="text" name="cc" placeholder="验证码" style="width:200px;display:inline;">
-                     <img id="img" src="../static/imgs/indexBg2.png" onclick="changeCode()" style="width:96px;height:50px;">
+                     <img id="img" src="/imgs/indexBg2.png" onclick="changeCode()" style="width:96px;height:50px;">
                    <button id="loginButton" class="btn btn-default button-style" type="submit" style="width:100%;" disabled="disabled">登录</button>
                  </form>
                 </div>
@@ -89,8 +89,9 @@
             <p>signIn</p>
         </footer>
     
-    <script src="../static/jquery/jquery-3.0.0.min.js"></script>
-    <script src="../static/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+        <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+        <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+        <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript">
         changeLoginBoxLocation();
         checkCodeListen();
