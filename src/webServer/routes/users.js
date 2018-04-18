@@ -6,5 +6,8 @@ var path = require('path');
 router.get('/signInUp', function(req, res, next) {
   res.sendFile(path.join(__dirname, '../views/pages/signInUp.html')); 
 });
+router.get('/userInformation', function(req, res, next) {
+  res.sendFile(path.join(__dirname, '../views/pages/userInformation.html')); 
+});
 
 module.exports = router;
