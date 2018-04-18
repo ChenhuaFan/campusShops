@@ -8,7 +8,9 @@ import java.io.UnsupportedEncodingException;
 import javax.servlet.http.HttpServletRequest;
 
 import net.sf.json.JSONObject;
-
+/*
+ * 本程序处理前台发过来的json数据以及生成json返回给前台
+ * */
 public class JsonReader {
 	public static JSONObject receivePost(HttpServletRequest request) throws IOException, UnsupportedEncodingException {  
 		  
@@ -22,5 +24,5 @@ public class JsonReader {
         //将json字符串转换为json对象  
         JSONObject json=JSONObject.fromObject(sb.toString());  
         return json;  
-    }  
+    }
 }

@@ -8,4 +8,5 @@ node_modules
 !src/www/static/**/*.pdf
 
 # ignore con file
-src/authService/config/*.js
+src/services/token/config/*.js
+src/apiGateway/config/*.js
