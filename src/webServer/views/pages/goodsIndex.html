@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title id="storeNameTitle">
+        
+        {{ message }}
+      
+    </title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
+    <!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
+    <!--[if lt IE 9]>
+      <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+      
+      
+    <style type="text/css">
+        
+        a{
+            text-decoration: none;
+        }
+        a:hover{
+            color: black;
+            text-decoration: none;
+        }
+        a:link{
+            color: white;
+        }
+        /*
+            displayStoreMsgBox media
+        */
+        @media (min-width: 768px){
+            .displayStoreMsgBox{
+                width: 500px;
+                height: 150px;
+                background-color: white;
+                margin: 0 auto;
+                background:-webkit-gradient(linear, 65 65,444 bottom, from(aquamarine), to(blanchedalmond));
+                position: relative;
+            }
+            
+            .box1{
+                position: absolute;
+                width: 200px;
+                height: 180px;
+            }
+            
+            .box2{
+                position: absolute;
+                width: 300px;
+                height: 180px;
+                left: 200px;
+            }
+            
+            .displayGoodsBox{
+                width: 500px;
+                height: auto;
+                margin: 0 auto;
+                margin-top: 180px;
+            }
+            
+            .category11{
+                position: absolute;
+                width: 150px;
+                height: auto;
+                background: gray
+            }
+            .category22{
+                width: 350px;
+                float: left;
+                margin-left: 150px;
+            }
+            
+            .footer{
+                width: 500px;
+                height: 40px;
+                margin: 0 auto;
+                background-color: gray;
+            }
+            
+            .ShowGoods{
+                width: 500px;
+                height: auto;
+                margin: 0 auto;
+                background-color: rebeccapurple;
+            }
+        }
+        @media (max-width: 768px){
+            .displayStoreMsgBox{
+                width: 100%;
+                height: 150px;
+                background-color: red;
+                background:-webkit-gradient(linear, 0 0, 0 bottom, from(aquamarine), to(blanchedalmond));
+            }
+            
+            
+            .box1{
+                position: absolute;
+                width: 150px;
+                height: 180px;
+            }
+            
+            .box2{
+                position: absolute;
+                width: auto;
+                height: 180px;
+                left: 150px;
+            }
+            
+            
+            .displayGoodsBox{
+                width: 100%;
+                height: auto;
+                margin: 0 auto;
+                margin-top: 180px;
+            }
+            
+            
+            .category11{
+                position: absolute;
+                width: 150px;
+                height: auto;
+                background: gray
+            }
+            .category22{
+                width: 100%;
+                float: left;
+            }
+            .nimade{
+                margin-left: 150px;
+                width: auto;
+            }
+            
+            
+            .footer{
+                width: 100%;
+                height: 40px;
+                margin: 0 auto;
+                background-color: gray;
+            }
+            
+            .ShowGoods{
+                width: 100%;
+                height: auto;
+                background-color: rebeccapurple;
+            }
+        }
+        
+        
+        .goodsCategory{
+            margin-top: 10px;
+            height: 40px;
+            font-size: 1.3em;
+            font-weight: 100;
+        }
+        #showMyGoods{
+        }
+    </style>
+  </head>
+  <body style="background-color: rgb(245,245,240,0.5);">
+    
+      
+    <div class="container-fluid">
+      <div class="row">
+          <!--    head component begin-->
+        <div class="col-md-12 col-sm-12 col-xs-12 navbar-fixed-top" style="padding: 0px;">
+            <div style="height: 180px;">
+                <div class="displayStoreMsgBox">
+                    <div class="box1">
+                        <img id="storeLogo" style="width: 100px;height: 100px;border-radius: 100px; margin-left: 25px;margin-top: 24px;" v-bind:src="storeLogo">
+                    </div>
+                    <div class="box2">
+                        <a href="##"><p style="font-size: 1.6em;color: white;font-weight: 100; margin-top: 24px;">黄山学院25-26栋服务店</p></a>
+                        <small style="color: white; font-size: 1.1em;">起送 7 元| 配送 0 元 |送达 1 分钟</small>
+                        <!-- 用空标签换行 -->
+                        <p></p>
+                        <p style="color: white;">新学期，优惠多多</p>
+                    </div>
+                </div>
+                <div class="displayStoreMsgBox" style="height: 30px;background: rgb(55,55,55,0.6);text-align: center;line-height: 30px;">
+                    <a href="##" style="z-index: 999;">
+                        <span style="color: pink" class="glyphicon glyphicon-gift">&nbsp;</span>店铺首单满10元减1元，满20元减2000元
+                    </a>
+                </div>
+            
+            </div>
+        </div>
+          
+          <!--    head component end-->
+          
+        <div class="col-md-12 col-sm-12 col-xs-12" style="padding: 0px;">
+            
+            <div class="displayGoodsBox">
+                
+                <div style="height: 40px;width: auto;background: rgb(233,233,233,0.5);">
+                    <ul style="list-style: none; text-align: center;line-height: 40px; font-size: 1.6em;font-weight: 100;">
+                    <li style="width: 33%;height: 40px; float: left;margin-left: -15px;"><a href="##" style="color: green;">商品</a></li>
+                    <li style="width: 33%;height: 40px; float: left"><a href="##" style="color: black;">评价</a></li>
+                    <li style="width: 33%;height: 40px; float: left"><a href="##" style="color: black;">商家</a></li>
+                    </ul>
+                </div>
+                
+                
+                <div style="position: relative;">
+                
+                    
+                <div class="category11">
+                    <ul style="list-style: none; position: fixed; ">
+                        <li class="goodsCategory" style="margin-top: 20px;"><a href="##" style="color: black;">category1</a></li>
+                        <li class="goodsCategory"><a href="##" style="color: black;">category2</a></li>
+                        <li class="goodsCategory"><a href="##" style="color: black;">category3</a></li>
+                        <li class="goodsCategory"><a href="##" style="color: black;">category4</a></li>
+                        <li class="goodsCategory"><a href="##" style="color: black;">category5</a></li>
+                        <li class="goodsCategory"><a href="##" style="color: black;">category6</a></li>
+                        <li class="goodsCategory"><a href="##" style="color: black;">category7</a></li>
+                        <li class="goodsCategory"><a href="##" style="color: black;">category8</a></li>
+                        <li class="goodsCategory"><a href="##" style="color: black;">category9</a></li>
+                    </ul>
+                </div>
+                
+                
+                <!--      goods      -->
+                
+                <div class="category22">
+                    <div class="table-responsive nimade">
+                      <table class="table">
+                          <!-- 一个完整的商品 -->
+                        <tr>
+                            <td style="width: 100px;"><img style="width: 100px;height: 100px;" src="/imgs/indexBg3.png" alt="goodsPirture"></td>  
+                            <td>
+                                <a style="font-size: 1.2em;margin-left: 10px;" href="##">芝士饼干</a>
+                                <p style="margin-left: 10px;">月售70袋 好评0</p>
+                                <p style="margin-left: 10px;">3.5元</p>
+                            </td>  
+                            <td style="text-align: center;">
+                            
+                                <span class="glyphicon glyphicon-minus"></span>
+                                <span>0</span>
+                                <span class="glyphicon glyphicon-plus"></span>
+                            
+                            </td>  
+                        </tr>
+                          
+                          <!--  一个完整的商品结束  -->
+                          
+                          
+                          <!-- 一个完整的商品 -->
+                        <tr>
+                            <td style="width: 100px;"><img style="width: 100px;height: 100px;" src="/imgs/indexBg2.png" alt="goodsPirture"></td>  
+                            <td>
+                                <a style="font-size: 1.2em;margin-left: 10px;" href="##">芝士饼干</a>
+                                <p style="margin-left: 10px;">月售70袋 好评0</p>
+                                <p style="margin-left: 10px;">3.5元</p>
+                            </td>  
+                            <td style="text-align: center;">
+                            
+                                <span class="glyphicon glyphicon-minus"></span>
+                                <span>0</span>
+                                <span class="glyphicon glyphicon-plus"></span>
+                            
+                            </td>  
+                        </tr>
+                          
+                          <!--  一个完整的商品结束  -->
+                          
+                          
+                          <!-- 一个完整的商品 -->
+                        <tr>
+                            <td style="width: 100px;"><img style="width: 100px;height: 100px;" src="/imgs/indexBg3.png" alt="goodsPirture"></td>  
+                            <td>
+                                <a style="font-size: 1.2em;margin-left: 10px;" href="##">芝士饼干</a>
+                                <p style="margin-left: 10px;">月售70袋 好评0</p>
+                                <p style="margin-left: 10px;">3.5元</p>
+                            </td>  
+                            <td style="text-align: center;">
+                            
+                                <span class="glyphicon glyphicon-minus"></span>
+                                <span>0</span>
+                                <span class="glyphicon glyphicon-plus"></span>
+                            
+                            </td>  
+                        </tr>
+                          
+                          <!--  一个完整的商品结束  -->
+                          
+                          
+                          <!-- 一个完整的商品 -->
+                        <tr>
+                            <td style="width: 100px;"><img style="width: 100px;height: 100px;" src="/imgs/indexBg2.png" alt="goodsPirture"></td>  
+                            <td>
+                                <a style="font-size: 1.2em;margin-left: 10px;" href="##">芝士饼干</a>
+                                <p style="margin-left: 10px;">月售70袋 好评0</p>
+                                <p style="margin-left: 10px;">3.5元</p>
+                            </td>  
+                            <td style="text-align: center;">
+                            
+                                <span class="glyphicon glyphicon-minus"></span>
+                                <span>0</span>
+                                <span class="glyphicon glyphicon-plus"></span>
+                            
+                            </td>  
+                        </tr>
+                          
+                          <!--  一个完整的商品结束  -->
+                          
+                          <!-- 一个完整的商品 -->
+                        <tr>
+                            <td style="width: 100px;"><img style="width: 100px;height: 100px;" src="/imgs/indexBg3.png" alt="goodsPirture"></td>  
+                            <td>
+                                <a style="font-size: 1.2em;margin-left: 10px;" href="##">芝士饼干</a>
+                                <p style="margin-left: 10px;">月售70袋 好评0</p>
+                                <p style="margin-left: 10px;">3.5元</p>
+                            </td>  
+                            <td style="text-align: center;">
+                            
+                                <span class="glyphicon glyphicon-minus"></span>
+                                <span>0</span>
+                                <span class="glyphicon glyphicon-plus"></span>
+                            
+                            </td>  
+                        </tr>
+                          
+                          <!--  一个完整的商品结束  -->
+                          
+                          
+                          <!---->
+                          <!-- 一个完整的商品 -->
+                        <tr>
+                            <td style="width: 100px;"><img style="width: 100px;height: 100px;" src="/imgs/indexBg2.png" alt="goodsPirture"></td>  
+                            <td>
+                                <a style="font-size: 1.2em;margin-left: 10px;" href="##">芝士饼干</a>
+                                <p style="margin-left: 10px;">月售70袋 好评0</p>
+                                <p style="margin-left: 10px;">3.5元</p>
+                            </td>  
+                            <td style="text-align: center;">
+                            
+                                <span class="glyphicon glyphicon-minus"></span>
+                                <span>0</span>
+                                <span class="glyphicon glyphicon-plus"></span>
+                            
+                            </td>  
+                        </tr>
+                          
+                          <!--  一个完整的商品结束  -->
+                          
+                          
+                          <!-- 一个完整的商品 -->
+                        <tr>
+                            <td style="width: 100px;"><img style="width: 100px;height: 100px;" src="/imgs/indexBg3.png" alt="goodsPirture"></td>  
+                            <td>
+                                <a style="font-size: 1.2em;margin-left: 10px;" href="##">芝士饼干</a>
+                                <p style="margin-left: 10px;">月售70袋 好评0</p>
+                                <p style="margin-left: 10px;">3.5元</p>
+                            </td>  
+                            <td style="text-align: center;">
+                            
+                                <span class="glyphicon glyphicon-minus"></span>
+                                <span>0</span>
+                                <span class="glyphicon glyphicon-plus"></span>
+                            
+                            </td>  
+                        </tr>
+                          
+                          <!--  一个完整的商品结束  -->
+                          
+                          
+                      </table>
+                    </div>
+                    
+                </div>
+                
+                </div>
+                
+                
+            </div>
+          
+        </div>
+          
+          
+          
+        <!--  footer  -->
+          
+          
+          <footer class="col-md-12 col-sm-12 navbar-fixed-bottom" style="padding: 0px;">
+              
+            
+              
+            <div class="footer" style="line-height: 40px; font-size: 1.13em;color: white;">
+              <span class="label label-info">联系客服</span>
+                
+                
+                
+              <button id="showMyGoodsButton" style="background-color: transparent; border: none;" type="button" >
+                  我的购物车   <span class="badge" style="background-color: royalblue;"> 4</span>
+              </button>
+                
+                
+                <!-- Modal -->
+                
+
+              <span style="float: right;margin-right: 20px;">7元起送</span>
+            
+            </div>  
+            
+              
+              <!-- 展示购物车中的商品 -->
+            <div id="showMyGoods" class="ShowGoods">
+              
+              
+                <div class="table-responsive">
+                    <table class="table" style="text-align: center;">
+                    
+                          <!-- 一个完整的商品 -->
+                        
+                        
+                        
+                        <tr>
+                            <td style="width: 100px;"><img style="width: 100px;height: 100px;" src="/imgs/indexBg3.png" alt="goodsPirture"></td>  
+                            <td>
+                                <a style="font-size: 1.2em;margin-left: 10px;" href="##">芝士饼干</a>
+                                <p style="margin-left: 10px;">月售70袋 好评0</p>
+                                <p style="margin-left: 10px;">3.5元</p>
+                            </td>  
+                            <td style="text-align: center;">
+                            
+                                <span class="glyphicon glyphicon-minus"></span>
+                                <span>0</span>
+                                <span class="glyphicon glyphicon-plus"></span>
+                            
+                            </td>  
+                        </tr>
+                        
+                        
+                          <!--  一个完整的商品结束  -->
+                        <tr style="color: red;">
+                            <td>总价</td>
+                            <td>1000元</td>
+                            <td>确认</td>
+                        </tr>
+                    
+                    </table>
+                </div>
+              
+            </div>
+              
+              
+              <!-- 展示购物车中的商品  结束-->
+          
+          </footer>
+          
+          
+      </div>
+        
+    </div>
+      
+      
+      
+    <!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <!-- vue.js -->
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+      
+      
+    <script type="text/javascript">
+        
+        //加载title标题
+        var storeNameTitle = new Vue({
+            el: '#storeNameTitle',
+            data: {
+             message: '黄山学院25-26栋'
+            }
+        });
+        //加载storeLogo
+        var storeLogo = new Vue({
+            el: '#storeLogo',
+            data: {
+                storeLogo: '/imgs/indexBg3.png'
+            }
+        });
+        
+        //点击购物车效果js
+        $("#showMyGoods").css("height","0px");
+        
+        var showMyGoodsButtomStatus = 0;
+        
+        $("#showMyGoodsButton").click(function(){
+            if(showMyGoodsButtomStatus == 0){
+                
+                $("#showMyGoods").css("height","auto");
+                showMyGoodsButtomStatus = 1;
+            }
+            else{
+                $("#showMyGoods").css("height","0px");
+                showMyGoodsButtomStatus = 0;
+            }
+        });
+        
+        
+        //ok
+        
+      
+      
+    </script>
+  </body>
+</html>

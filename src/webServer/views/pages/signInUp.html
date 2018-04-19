@@ -1,0 +1,204 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+<head>
+    <title>login/register</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <link type="text/css" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link rel="shortcut icon" href="photos/favicon.ico"/>
+    <link rel="bookmark" href="photos/favicon.ico"/>
+    <style type="text/css">
+        .input-style{
+            height: 50px;
+            border-top: none;
+            border-left: none;
+            border-right: none;
+            border-radius: 0px;
+            box-shadow:0px 0px 0px white;
+            letter-spacing: 4px;
+        }
+        .input-style:focus{
+            border-top: none;
+            border-left: none;
+            border-right: none;
+            box-shadow:0px 0px 0px white;
+        }
+        .button-style{
+            height: 40px;
+            margin-top: 20px;
+        }
+        a{
+            text-decoration: none;
+        }
+        a:hover{
+            text-decoration: none;
+        }
+        a:link{
+            text-decoration: none;
+        }
+    </style>
+</head>
+    <body>
+        <div class="container-fluid">
+            <div class="row">
+                <div id="top-blank"></div>
+                
+                <div style="width:300px;height:30px;margin:0 auto;line-height:30px;">
+                    <a id="la" href="javascript:void(0);" onclick="loginA()">登录</a>
+                    <a id="ra" href="javascript:void(0);" onclick="registerA()" style="color:gray;">我要注册</a>
+                </div>
+                
+                <div id="login" style="width:300px;height:height;margin:0 auto;">
+                 <form action="userLogin" method="post">
+                   <input class="form-control input-style" type="text" name="un" placeholder="账号" onfocus="NoBlank(this)" onkeyup="NoBlank(this)" onblur="NoBlank(this)">
+                   <input class="form-control input-style" type="password" name="pw" placeholder="密码" onfocus="NoBlank(this)" onkeyup="NoBlank(this)" onblur="NoBlank(this)">
+                   <input id="checkCode" class="form-control input-style" type="text" name="cc" placeholder="验证码" style="width:200px;display:inline;">
+                     <img id="img" src="/imgs/indexBg2.png" onclick="changeCode()" style="width:96px;height:50px;">
+                   <button id="loginButton" class="btn btn-default button-style" type="submit" style="width:100%;" disabled="disabled">登录</button>
+                 </form>
+                </div>
+                
+                <div id="register" style="width:300px;height:height;margin:0 auto; display:none;">
+                 <form action="userRegister" method="post" id="regiForm">
+                   <input id="t1" class="form-control input-style" type="text" name="regiUn" placeholder="账号" onfocus="NoBlank(this)" onkeyup="NoBlank(this)" onblur="NoBlank(this)">
+                   <input id="t2" class="form-control input-style" type="password" name="regiPw" placeholder="密码" onfocus="NoBlank(this)" onkeyup="NoBlank(this)" onblur="NoBlank(this)">
+                   <input id="t3" class="form-control input-style" type="password" name="regiPw2" placeholder="确认密码">
+                   <input id="t6" class="form-control input-style" type="text" name="regiPh" placeholder="电话号码" >
+                   <input id="t5" class="form-control input-style" type="text" name="regiEm" placeholder="邮箱" >
+                     <!--可以为Null-->
+                   <!--<input id="t4" class="form-control input-style" type="text" name="" placeholder="生日" >
+                   <input id="t6" class="form-control input-style" type="text" name="" placeholder="电话号码" >
+                    -->
+                     
+                   <button id="loginButton2" class="btn btn-default button-style" type="submit" style="width:100%;" disabled="disabled" onclick="isMoreMessage()">注册</button>
+                 </form>
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <footer style="margin:0 auto; width:300px;height:auto;text-align:center; margin-top:100px;">
+            <p>signIn</p>
+        </footer>
+    
+        <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+        <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+        <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        changeLoginBoxLocation();
+        checkCodeListen();
+        
+        $(window).resize(function(){
+            changeLoginBoxLocation();
+            //alert(1);
+        });
+        
+
+        function changeCode(){  
+            //得到图片元素  
+            var img=document.getElementById("img"); 
+            //img.src="checkCode?time="+new Date().getTime();  
+        }
+        
+        function isMoreMessage(){
+            /*var r=confirm("我们推荐你填写更多信息")
+            if (r==true && isSub == 1)
+            {
+                $("#t1").css("display","none");
+                $("#t2").css("display","none");
+                $("#t3").css("display","none");
+                
+                $("#t4").css("display","block");
+                $("#t5").css("display","block");
+                $("#t6").css("display","block");
+                
+                $("#loginButton2").removeAttr("onclick");
+                //$("#loginButton2").attr("onclick","regi2()")
+                //$("#loginButton2").removeAttr("type");
+                //$("#loginButton2").attr("type","submit");
+            }
+            else
+            {
+                $("#regiForm").submit();
+            }*/
+        }
+        
+        
+        function NoBlank(va){
+            if(va.value.length =="" || va.value == null){
+                $("#loginButton").attr("disabled","disabled");
+                $("#loginButton2").attr("disabled","disabled");
+                va.style.color = "red";
+            }
+            else{
+                $("#loginButton").removeAttr("disabled");
+                $("#loginButton2").removeAttr("disabled");
+                va.style.color = "black";
+            }
+            if(va.value.indexOf(" ") >= 0){
+                $("#loginButton").attr("disabled","disabled");
+                $("#loginButton2").attr("disabled","disabled");
+                va.style.color = "red";
+            }
+            else{
+                $("#loginButton").removeAttr("disabled");
+                $("#loginButton2").removeAttr("disabled");
+                va.style.color = "black";
+            }
+        }
+        
+        function checkCodeListen(){
+            $("#checkCode").keyup(function(){
+                var checkCode = $("#checkCode").val();
+                var codeLength = $("#checkCode").val().length;
+                //alert(codeLength);
+                if(codeLength>=4){
+                    checkCode = checkCode.substring(0,4); 
+                    document.getElementById("checkCode").value = checkCode;
+                }
+            });
+        }
+        
+        function changeLoginBoxLocation(){
+            var height = $(this).height();
+            var marginTopValue = (height-390)/2;
+            if(height < 300 ){
+                $("#top-blank").css("margin-top",0+"px");
+            }
+            else{
+                $("#top-blank").css("margin-top",marginTopValue+"px");
+            }
+            
+            
+            
+            //
+            if(height < 500)
+                document.getElementsByTagName("footer")[0].style.marginTop = 0+"px";
+            else
+                document.getElementsByTagName("footer")[0].style.marginTop = 100+"px";
+        }
+        
+        function loginA(){
+            $("#register").css("display","none");
+            $("#login").css("display","block");
+            $("#la").css("color","rgb(20,120,203)");
+            $("#ra").css("color","gray");
+            
+        }
+        function registerA(){
+            $("#login").css("display","none");
+            $("#register").css("display","block");
+            $("#ra").css("color","rgb(20,120,203)");
+            $("#la").css("color","gray");
+        }
+    </script>
+    </body>
+</html>
