@@ -17,7 +17,7 @@ router.post('/login', async function (ctx, next) {
     // request user -> request token.
     let body = ctx.request.body;
     // do request. 'http://localhost:3000/user/userLogin'
-    let user = await temp('http://localhost:3000/user/userLogin', body);
+    let user = await temp('http://192.168.65.84:5001/user/userLogin', body);
     if (user.status === 'false' || user.status === false) {
         ctx.response.status = 403;
         ctx.body = user;
@@ -52,7 +52,7 @@ router.post('/login', async function (ctx, next) {
 router.post('/register', async function (ctx, next) {
     let body = ctx.request.body;
     //
-    let user = await temp('http://localhost:3000/user/userRegister', body);
+    let user = await temp('http://192.168.65.84:5001/user/userRegister', body);
     if (user.status === 'false' || user.status === false) {
         ctx.response.status = 403;
         ctx.body = user;
