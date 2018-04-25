@@ -1,23 +1,14 @@
 const router = require('koa-router')()
-const agent = require('superagent');
+const service = require('../config/services');
+const agent = require('../common/agent');
 
 router.prefix('/auth')
-
-let temp = (url, body) => {
-    return agent
-        .post(url)
-        .send(body)
-        .set('Accept', 'application/json')
-        .then(function(res) {
-            return res.body;
-        });
-};
 
 router.post('/login', async function (ctx, next) {
     // request user -> request token.
     let body = ctx.request.body;
-    // do request. 'http://localhost:3000/user/userLogin'
-    let user = await temp('http://192.168.65.84:5001/user/userLogin', body);
+    // do request.
+    let user = await agent(service.user.login, body);
     if (user.status === 'false' || user.status === false) {
         ctx.response.status = 403;
         ctx.body = user;
@@ -38,7 +29,7 @@ router.post('/login', async function (ctx, next) {
             // none
     }
     // get token
-    let token = await temp('http://localhost:5000/token/get', user);
+    let token = await agent(service.token.get, user);
     if (user.status === 'false' || user.status === false) {
         ctx.response.status = 403;
         ctx.body = token;
@@ -52,7 +43,7 @@ router.post('/login', async function (ctx, next) {
 router.post('/register', async function (ctx, next) {
     let body = ctx.request.body;
     //
-    let user = await temp('http://192.168.65.84:5001/user/userRegister', body);
+    let user = await agent(service.user.register, body);
     if (user.status === 'false' || user.status === false) {
         ctx.response.status = 403;
         ctx.body = user;
@@ -73,7 +64,7 @@ router.post('/register', async function (ctx, next) {
             // none
     }
     // get token
-    let token = await temp('http://localhost:5000/token/get', user);
+    let token = await agent(service.token.get, user);
     if (user.status === 'false' || user.status === false) {
         ctx.response.status = 403;
         ctx.body = token;
@@ -86,7 +77,7 @@ router.post('/register', async function (ctx, next) {
 
 router.post('/update', async function (ctx, next) {
     let body = ctx.request.body;
-    let token = await temp('http://localhost:5000/token/update', body);
+    let token = await agent(service.token.update, body);
     if (token.status === 'false' || token.status === false) {
         ctx.response.status = 403;
         ctx.body = token;
