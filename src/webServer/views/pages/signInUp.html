@@ -128,6 +128,7 @@
                 console.log(data);
                 console.log(status);
                 oldToken = "";
+                window.open("http://192.168.65.58/");
             });
         }
 
@@ -152,8 +153,13 @@
                 console.log(data);
                 console.log(status);
                 oldToken = "";
+                window.open("http://192.168.65.58/");
             });
         }
+        
+        setInterval(function(){ 
+            updatetoken(); 
+            }, 600000);
         
         function updatetoken(){
             var url = "http://192.168.65.58/api/v1/auth/update";
