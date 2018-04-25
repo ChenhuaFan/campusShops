@@ -22,7 +22,7 @@
 ### 1. 用户注册
 ```javascript
 // 请求地址
-"http://host/api/v1/user/register"
+"http://host/api/v1/auth/register"
 ```
 ### 请求字段说明
 |字段名|格式|含义|必填|备注|
@@ -47,7 +47,7 @@
 ### 2. 用户登录
 ```javascript
 // 请求地址
-"http://host/api/v1/user/login"
+"http://host/api/v1/auth/login"
 ```
 ### 请求字段说明
 |字段|格式|含义|是否必填|
@@ -69,7 +69,7 @@
 ### 3. 令牌更新
 ```javascript
 // 请求地址
-"http://host/api/v1/token/update"
+"http://host/api/v1/auth/update"
 ```
 ### 字段说明
 
