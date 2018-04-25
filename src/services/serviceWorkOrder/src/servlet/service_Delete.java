@@ -46,27 +46,35 @@ public class service_Delete extends HttpServlet {
 		// TODO Auto-generated method stub
 		String userID,ServiceID;//request.getParameter("userID");
 		JSONObject sourceJson ,ReJson;
+		boolean flag=false,sflag = false;
 		
 		 /**
          * 接收json
          */
-		sourceJson = JsonReader.receivePost(request);
-        userID =sourceJson.getString("UserID");
-        ServiceID =sourceJson.getString("ServiceID");
-//        json =JSONObject.fromObject(goods);
-        Aservice serv = new Aservice();
-        serv.setServiceID(Integer.parseInt(ServiceID));
-        serv.setUserID(Integer.parseInt(userID));
-         
-        
-        //System.out.println(json);
-        boolean flag = do_service_info.updateServiceInfo(serv, "delete");
-       
+		try {
+			sourceJson = JsonReader.receivePost(request);
+	        userID =sourceJson.getString("UserID");
+	        ServiceID =sourceJson.getString("ServiceID");
+	//        json =JSONObject.fromObject(goods);
+	        Aservice serv = new Aservice();
+	        serv.setServiceID(Integer.parseInt(ServiceID));
+	        serv.setUserID(Integer.parseInt(userID));
+	        sflag =true;
+	        
+	        //System.out.println(json);
+	        flag = do_service_info.updateServiceInfo(serv, "delete");
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
         ReJson = new JSONObject();
-        if(flag) {
+        if(sflag ==false) {
+        	ReJson.put("status", "false");
+        	ReJson.put("info", "wrong Json format");
+        }
+        else if(flag) {
         	
         	ReJson.put("status", "true");
-        	ReJson.put("info", "success");
         }else {
         	ReJson.put("status", "false");
         	ReJson.put("info", "database error");

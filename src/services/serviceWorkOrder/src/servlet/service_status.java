@@ -46,16 +46,30 @@ public class service_status extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String serviceID,UserID ;
-		JSONObject sourceJson ,ReJson;
+		JSONObject sourceJson ,ReJson=null;
+		boolean flag = false;
+		Aservice serv = null;
+		try {
 		sourceJson = JsonReader.receivePost(request);
         serviceID =sourceJson.getString("ServiceID");
         UserID =sourceJson.getString("UserID");
 		//return json
+        flag = true;
         ReJson = new JSONObject();
-        Aservice serv = do_service_info.getServiceInfo(Integer.parseInt(serviceID));
-        if(serv!=null) {
-        	ReJson.put("ServiceID",serv.getServiceID());
-        	ReJson.put("Rank",serv.getStatus());
+        
+        serv = do_service_info.getServiceInfo(Integer.parseInt(serviceID));
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		if(flag == false) {
+			ReJson = new JSONObject();
+			ReJson.put("state",false );
+        	ReJson.put("info", "wrong Json format");
+		}
+        else if(serv!=null) {
+        	ReJson = new JSONObject();
+        	ReJson.put("status",true);
+        	ReJson.put("state",serv.getStatus());
         }else {
         	ReJson.put("state",false );
         	ReJson.put("info", "DataBase Error");

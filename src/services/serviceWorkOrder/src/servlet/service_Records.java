@@ -46,6 +46,8 @@ public class service_Records extends HttpServlet {
 		// TODO Auto-generated method stub
 		String serviceID,userID;
 		JSONObject sourceJson ,ReJson=null;
+		boolean flag = false;
+		try {
 		sourceJson = JsonReader.receivePost(request);
         serviceID =sourceJson.getString("ServiceID");
         userID=sourceJson.getString("UserID");
@@ -53,11 +55,17 @@ public class service_Records extends HttpServlet {
         //大json 套小 json
          
        // try {
-        	ReJson = do_service_info.getRecords(Integer.parseInt(serviceID), Integer.parseInt(userID));
-       // }catch(Exception e) {
-        //	e.printStackTrace();
-        //}
-        if(ReJson == null) {
+        flag= true;
+        ReJson = do_service_info.getRecords(Integer.parseInt(serviceID), Integer.parseInt(userID));
+        }catch(Exception e) {
+        	e.printStackTrace();
+        }
+        if(flag == false) {
+        	ReJson = new  JSONObject();
+        	ReJson.put("status", "false");
+        	ReJson.put("info", "wrong Json Format");
+        }	
+        if(ReJson == null||ReJson.isEmpty()) {
         	ReJson = new  JSONObject();
         	ReJson.put("status", "false");
         	ReJson.put("info", "Database Error");
