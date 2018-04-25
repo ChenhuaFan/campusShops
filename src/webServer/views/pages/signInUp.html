@@ -126,7 +126,9 @@
                 },
                 function(data,status){
                 console.log(data);
+                console.log(status);
                 oldToken = "";
+                window.open("http://192.168.65.58/");
             });
         }
 
@@ -138,6 +140,7 @@
             var email = $("#t5").val();
             var phone = $("#t4").val();
             var gender = $("#t6").val();
+            console.log(userName+pw+email+phone+gender);
 
             $.post(url,{
                 userName:userName,
@@ -148,9 +151,15 @@
                 },
                 function(data,status){
                 console.log(data);
+                console.log(status);
                 oldToken = "";
+                window.open("http://192.168.65.58/");
             });
         }
+        
+        setInterval(function(){ 
+            updatetoken(); 
+            }, 600000);
         
         function updatetoken(){
             var url = "http://192.168.65.58/api/v1/auth/update";
@@ -159,7 +168,8 @@
                 oldToken:oldToken
                 },
                 function(data,status){
-                    alert(status);
+                    console.log(data);
+                    console.log(status);
                     oldToken="";
             });
         }
