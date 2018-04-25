@@ -126,6 +126,7 @@
                 },
                 function(data,status){
                 console.log(data);
+                console.log(status);
                 oldToken = "";
             });
         }
@@ -138,6 +139,7 @@
             var email = $("#t5").val();
             var phone = $("#t4").val();
             var gender = $("#t6").val();
+            console.log(userName+pw+email+phone+gender);
 
             $.post(url,{
                 userName:userName,
@@ -148,6 +150,7 @@
                 },
                 function(data,status){
                 console.log(data);
+                console.log(status);
                 oldToken = "";
             });
         }
@@ -159,7 +162,8 @@
                 oldToken:oldToken
                 },
                 function(data,status){
-                    alert(status);
+                    console.log(data);
+                    console.log(status);
                     oldToken="";
             });
         }
