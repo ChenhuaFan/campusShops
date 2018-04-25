@@ -1,6 +1,6 @@
 const agent = require('superagent');
 
-let agent = (url, body) => {
+let temp = (url, body) => {
     return agent
         .post(url)
         .send(body)
@@ -10,4 +10,4 @@ let agent = (url, body) => {
         });
 };
 
-module.exports = agent;
+module.exports = temp;

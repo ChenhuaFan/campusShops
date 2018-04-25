@@ -26,3 +26,10 @@ sudo npm install
 
 cd /var/www/
 pm2 start pm2.json
+pm2 save
+sudo env PATH=$PATH:/usr/bin /usr/lib/node_modules/pm2/bin/pm2 startup systemd -u rjxz --hp /home/rjxz
+
+# clear tem files
+cd /tmp/
+sudo rm -rf campusShops/
+sudo rm -rf shop.tar
