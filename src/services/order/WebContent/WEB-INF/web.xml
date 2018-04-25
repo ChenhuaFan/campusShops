@@ -9,4 +9,49 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  <!-- 创建订单 -->
+  <servlet>
+    <servlet-name>createOrder</servlet-name>
+    <servlet-class>Servlet.createOrder</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>createOrder</servlet-name>
+    <url-pattern>/createOrder</url-pattern>
+  </servlet-mapping>
+  <!-- 根据用户ID查询订单 -->
+  <servlet>
+    <servlet-name>getOrderByUserId</servlet-name>
+    <servlet-class>Servlet.getOrderByUserId</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>getOrderByUserId</servlet-name>
+    <url-pattern>/getOrderByUserId</url-pattern>
+  </servlet-mapping>
+  <!-- 根据商家ID查询订单 -->
+  <servlet>
+    <servlet-name>getOrderByShopId</servlet-name>
+    <servlet-class>Servlet.getOrderByShopId</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>getOrderByShopId</servlet-name>
+    <url-pattern>/getOrderByShopId</url-pattern>
+  </servlet-mapping>
+  <!-- 根据订单状态查询订单 -->
+  <servlet>
+    <servlet-name>getOrderByStatus</servlet-name>
+    <servlet-class>Servlet.getOrderByStatus</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>getOrderByStatus</servlet-name>
+    <url-pattern>/getOrderByStatus</url-pattern>
+  </servlet-mapping>
+  <!-- 更改订单状态 -->
+  <servlet>
+    <servlet-name>modifyOrderStatus</servlet-name>
+    <servlet-class>Servlet.modifyOrderStatus</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>modifyOrderStatus</servlet-name>
+    <url-pattern>/modifyOrderStatus</url-pattern>
+  </servlet-mapping>
 </web-app>

@@ -42,7 +42,9 @@ public class regexStr {
 	//检查性别
 	public boolean checkGender(String gender) {
 		boolean flag = false;
-		flag = gender.matches("[男女]");
+		if(gender.equals("男") || gender.equals("女")) {
+			flag = true;
+		}
 		return flag;
 	}
 	

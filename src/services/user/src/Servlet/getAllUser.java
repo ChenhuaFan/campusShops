@@ -70,7 +70,7 @@ public class getAllUser extends HttpServlet {
     					userInfo.put("role", allUserInfo[i][4]);
     					userInfo.put("gender", allUserInfo[i][5]);
     					userInfo.put("isActive", Integer.parseInt(allUserInfo[i][6]));
-    					userInfo.put("userID", Integer.parseInt(allUserInfo[i][7]));
+    					userInfo.put("isDelete", Integer.parseInt(allUserInfo[i][7]));
     					userInfo.put("headPortrait", allUserInfo[i][8]);
     					jsonArr[i] = userInfo;
         			}
@@ -93,6 +93,9 @@ public class getAllUser extends HttpServlet {
 			errorInfo.put("status", "false");
 			errorInfo.put("info", e.getMessage());
 			out.println(errorInfo);
+		} finally {
+			out.flush();
+			out.close();
 		}
 	}
 
