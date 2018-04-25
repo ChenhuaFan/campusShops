@@ -47,34 +47,40 @@ public class service_Add extends HttpServlet {
 		// TODO Auto-generated method stub
 		String userID,Title,Description,StartDate;//request.getParameter("userID");
 		JSONObject sourceJson ,ReJson;
-		
+		boolean flag =false;
+		boolean sflag=false;
 		 /**
          * 接收json
          */
-         
-        sourceJson = JsonReader.receivePost(request);
-        userID =sourceJson.getString("UserID");
-        Title = sourceJson.getString("Title");
-        Description = sourceJson.getString("Description");
-        StartDate = sourceJson.getString("StartDate");
-        
-//        json =JSONObject.fromObject(goods);
-        Aservice serv = new Aservice();
-        
-        serv.setUserID(Integer.parseInt(userID));
-        serv.setTitle(Title);
-        serv.setDescription(Description);
-        serv.setStartDate(StartDate);
-        serv.setStatus(0);
-        
-        //System.out.println(json);
-        boolean flag = do_service_info.updateServiceInfo( serv, "add");// = do_cart_info.updateCartInfo(userID,GoodsInfo);
-   
+        try {
+	        sourceJson = JsonReader.receivePost(request);
+	        userID =sourceJson.getString("UserID");
+	        Title = sourceJson.getString("Title");
+	        Description = sourceJson.getString("Description");
+	        StartDate = sourceJson.getString("StartDate");
+	        
+	//        json =JSONObject.fromObject(goods);
+	        Aservice serv = new Aservice();
+	        
+	        serv.setUserID(Integer.parseInt(userID));
+	        serv.setTitle(Title);
+	        serv.setDescription(Description);
+	        serv.setStartDate(StartDate);
+	        serv.setStatus(0);
+	        sflag =true;
+	        //System.out.println(json);
+	        flag = do_service_info.updateServiceInfo( serv, "add");// = do_cart_info.updateCartInfo(userID,GoodsInfo);
+        }catch(Exception e) {
+        	e.printStackTrace();
+        }
         ReJson = new JSONObject();
-        if(flag) {
+        if(sflag==false) {
+        	ReJson.put("status", "false");
+        	ReJson.put("info", "wrong Json format");
+        } else if(flag) {
         	
         	ReJson.put("status", "true");
-        	ReJson.put("info", "success option");
+        	
         }else {
         	ReJson.put("status", "false");
         	ReJson.put("info", "database error");

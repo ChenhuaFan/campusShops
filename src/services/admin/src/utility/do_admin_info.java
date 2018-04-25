@@ -7,8 +7,8 @@ public class do_admin_info {
 		JSONObject json = new JSONObject();
 
 		int  rank = adminSQLControl.sqlQuery(userID);	 
-		 
-		json.put("rank", rank);
+		json.put("status", true); 
+		json.put("Rank", rank);
 		
 		return json;
 		

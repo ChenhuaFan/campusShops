@@ -49,26 +49,33 @@ public class change_cartinfo extends HttpServlet {
 		
 		String userID,GoodsInfo;//request.getParameter("userID");
 		JSONObject sourceJson ,ReJson;
-		
+		boolean flag = false,sflag = false;
 		 /**
          * 接收json
          */
-		sourceJson = JsonReader.receivePost(request);
-        userID =sourceJson.getString("UserID");
-        GoodsInfo = sourceJson.getString("Goods");
-        
-        
-//        json =JSONObject.fromObject(goods);
-        
-        
-        //System.out.println(json);
-        boolean flag = do_cart_info.updateCartInfo(userID,GoodsInfo);
+		try {
+			sourceJson = JsonReader.receivePost(request);
+	        userID =sourceJson.getString("UserID");
+	        GoodsInfo = sourceJson.getString("Goods");
+	        
+	        
+	//        json =JSONObject.fromObject(goods);
+	        
+	        sflag = true;
+	        //System.out.println(json);
+	        flag = do_cart_info.updateCartInfo(userID,GoodsInfo);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
         
         ReJson = new JSONObject();
-        if(flag) {
+        if(sflag==false) {
+        	ReJson.put("status", "false");
+        	ReJson.put("info", "wrong Json format");
+        }else if(flag) {
         	
         	ReJson.put("status", "true");
-        	ReJson.put("info", "success option");
+        	
         }else {
         	ReJson.put("status", "false");
         	ReJson.put("info", "database error");

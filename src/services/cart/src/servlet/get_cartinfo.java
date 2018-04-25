@@ -45,26 +45,31 @@ public class get_cartinfo extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String userID=null ;
-		JSONObject sourceJson ,ReJson;
+		JSONObject sourceJson ,ReJson=null;
+		boolean flag =false;
 		try {
-		sourceJson = JsonReader.receivePost(request);
-        
-		  
-        userID =sourceJson.getString("UserID");
-        //System.out.println(userID);
-         
-         
+			sourceJson = JsonReader.receivePost(request);
+	        
+			  
+	        userID =sourceJson.getString("UserID");
+	        //System.out.println(userID);
+	        flag = true;
+	        ReJson = do_cart_info.getCartInfo(userID);
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
        
 		
 		//return json
-        ReJson = do_cart_info.getCartInfo(userID);
-       
-        if(ReJson==null) {
+ 
+		if(flag ==false) {
+			ReJson =new JSONObject();
+        	ReJson.put("status", false);
+        	ReJson.put("info", "wrong Json format");
+		}
+		else if(ReJson==null||ReJson.isEmpty()) {
         	ReJson =new JSONObject();
-        	ReJson.put("state", false);
+        	ReJson.put("status", false);
         	ReJson.put("info", "null info");
         	
         }

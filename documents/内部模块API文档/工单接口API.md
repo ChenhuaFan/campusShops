@@ -1,6 +1,6 @@
-# 接口文档说明:
+# 工单功能接口文档说明:
 
-> 设计者：吴亮and叶文成 时间：2018.4.16 版本：1.0.0   
+> 设计者：吴亮 时间：2018.4.25 版本：1.0.1   
 服务基于JavaWeb完成  
 1. 所有http请求是基于post
 2. 为实现服务的统一，接口返回的数据默认为json格式
@@ -33,12 +33,12 @@
 
 ## 2.1 工单的添加 ：
 ``` java
-"http://localhost:8080/serviceWorkOrder/add"
-//api第一版，Auth服务集合中基于post的登录服务
+"http://myhost:port/serviceWorkOrder/add"
+//基于post的工单添加功能的服务
 ```
 #### 2.1.1 调用API需要向接口发送一个JSON（POST）来访问服务。
 
-###字段如下格式
+### 字段如下格式
 | 字段名     | 格式     | 含义 | 必填 |
 | :------| :------ | :------ | :------ |
 | UserID | text，且必须由数字组成 | 用户ID | 是 |
@@ -55,7 +55,7 @@
 //样例 添加成功
 {
     "status": true,
-    "info": "success add."
+    
 }
 //样例 有错误产生
 {
@@ -66,12 +66,12 @@
 
 ## 2.2 工单的删除 ：
 ``` java
-"http://localhost:8080/serviceWorkOrder/delete"
-//api第一版，Auth服务集合中基于post的登录服务
+"http://myhost:port/serviceWorkOrder/delete"
+//基于post的工单删除功能的服务
 ```
 #### 2.2.1 调用API需要向接口发送一个JSON（POST）来访问服务。
 
-###字段如下格式
+### 字段如下格式
 | 字段名     | 格式     | 含义 | 必填 |
 | :------| :------ | :------ | :------ |
 | UserID | text，且必须由数字组成 | 用户ID | 是 |
@@ -85,8 +85,8 @@
 ``` java
 //样例 删除成功
 {
-    "status": true,
-    "info": "success add."
+    "status": true
+    
 }
 //样例 有错误产生
 {
@@ -98,12 +98,12 @@
 
 ## 2.3 获取工单的状态 ：
 ``` java
-"http://localhost:8080/serviceWorkOrder/status"
-//api第一版，Auth服务集合中基于post的登录服务
+"http://myhost:port/serviceWorkOrder/status"
+//基于post的获取工单状态功能的服务
 ```
 #### 2.3.1 调用API需要向接口发送一个JSON（POST）来访问服务。
 
-###字段如下格式
+### 字段如下格式
 | 字段名     | 格式     | 含义 | 必填 |
 | :------| :------ | :------ | :------ |
 | UserID | text，且必须由数字组成 | 用户ID | 是 |
@@ -112,39 +112,58 @@
 #### 2.3.2 返回值说明:
 | 字段名 | 含义 |
 | :---| :--- |
-| status | 工单状态值 |
+| status | 上述不再说明 |
+| state | 工单状态值 |
+
+| 字段名 | 含义 |
+| :---| :--- |
+| status | 上述不再说明 |
+| info | 上述不再说明 |
+
  0表示继续，1表示终止
 ``` java
 //样例 工单终止
 {
-    "status": 1,
+    "status": true,
+    "state":1
     
 }
 
 //样例 有错误产生
 {
-    "state": false,
+    "status": false,
     "info": "Database Error."
 }
 ```
 
 ## 2.4 获取工单的处理记录 ：
 ``` java
-"http://localhost:8080/serviceWorkOrder/records"
-//api第一版，Auth服务集合中基于post的登录服务
+"http://myhost:port/serviceWorkOrder/records"
+//基于post的获取工单处理记录功能的服务
 ```
 #### 2.4.1 调用API需要向接口发送一个JSON（POST）来访问服务。
 
-###字段如下格式
+### 字段如下格式
 | 字段名     | 格式     | 含义 | 必填 |
 | :------| :------ | :------ | :------ |
 | UserID | text，且必须由数字组成 | 用户ID | 是 |
 | ServiceID | text，且必须由数字组成 | 工单ID | 是 |
 #### 2.4.2 返回值说明:
+（每条工单记录对应一个ID，并按大小作为为工单处理记录的顺序。 例如下面第一个 "2"的ID）
 | 字段名 | 含义 |
 | :---| :--- |
-| records | json格式的处理记录集 |
+| ServiceID | 工单ID |
+| UserID | 用户ID |
+| Description | 描述 |
+| Time | 时间 |
  
+
+
+| 字段名 | 含义 |
+| :---| :--- |
+| status | 上述不再说明 |
+| info | 上述不再说明 |
+
 ``` java
 //样例 查询结果
 

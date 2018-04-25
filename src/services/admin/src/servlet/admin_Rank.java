@@ -43,17 +43,32 @@ public class admin_Rank extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String userID ;//userID
-		JSONObject sourceJson ,ReJson;
+		JSONObject sourceJson ,ReJson=null;
 		//BufferedReader reader = request.getReader();
-		sourceJson = JsonReader.receivePost(request);
+		boolean flag =false;
+		try {
+			sourceJson = JsonReader.receivePost(request);
 		
-        userID = sourceJson.getString("UserID");
+			userID = sourceJson.getString("UserID");
 		//return json
         //System.out.println(userID);
-        ReJson =new JSONObject();
-        ReJson = do_admin_info.getAdminRank(Integer.parseInt(userID));
+			flag = true;
+			ReJson = do_admin_info.getAdminRank(Integer.parseInt(userID));
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
         
-        
+		if(flag == false) {
+			ReJson = new JSONObject();
+			ReJson.put("status",false );
+        	ReJson.put("info", "wrong Json format");
+		}
+        else if(ReJson!=null || !ReJson.isEmpty()) {
+        	flag = true;
+        }else {
+        	ReJson.put("status",false );
+        	ReJson.put("info", "DataBase Error");
+        }
      // 设置响应头允许ajax跨域访问 
         response.setHeader("Access-Control-Allow-Origin", "*");  
         // 星号表示所有的异域请求都可以接受 
