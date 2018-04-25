@@ -56,28 +56,29 @@
                 </div>
                 
                 <div id="login" style="width:300px;height:height;margin:0 auto;">
-                 <form action="userLogin" method="post">
-                   <input class="form-control input-style" type="text" name="un" placeholder="账号" onfocus="NoBlank(this)" onkeyup="NoBlank(this)" onblur="NoBlank(this)">
-                   <input class="form-control input-style" type="password" name="pw" placeholder="密码" onfocus="NoBlank(this)" onkeyup="NoBlank(this)" onblur="NoBlank(this)">
+                 <form action="" method="post">
+                   <input id="denglu1" class="form-control input-style" type="text" name="un" placeholder="账号" onfocus="NoBlank(this)" onkeyup="NoBlank(this)" onblur="NoBlank(this)">
+                   <input id="denglu2" class="form-control input-style" type="password" name="pw" placeholder="密码" onfocus="NoBlank(this)" onkeyup="NoBlank(this)" onblur="NoBlank(this)">
                    <input id="checkCode" class="form-control input-style" type="text" name="cc" placeholder="验证码" style="width:200px;display:inline;">
                      <img id="img" src="/imgs/indexBg2.png" onclick="changeCode()" style="width:96px;height:50px;">
-                   <button id="loginButton" class="btn btn-default button-style" type="submit" style="width:100%;" disabled="disabled">登录</button>
+                   <button id="loginButton" class="btn btn-default button-style" type="button" style="width:100%;" disabled="disabled" onclick="isMoreMessage2()">登录</button>
                  </form>
                 </div>
                 
                 <div id="register" style="width:300px;height:height;margin:0 auto; display:none;">
-                 <form action="userRegister" method="post" id="regiForm">
+                 <form action="" method="post" id="regiForm">
                    <input id="t1" class="form-control input-style" type="text" name="regiUn" placeholder="账号" onfocus="NoBlank(this)" onkeyup="NoBlank(this)" onblur="NoBlank(this)">
                    <input id="t2" class="form-control input-style" type="password" name="regiPw" placeholder="密码" onfocus="NoBlank(this)" onkeyup="NoBlank(this)" onblur="NoBlank(this)">
                    <input id="t3" class="form-control input-style" type="password" name="regiPw2" placeholder="确认密码">
-                   <input id="t6" class="form-control input-style" type="text" name="regiPh" placeholder="电话号码" >
+                   <input id="t4" class="form-control input-style" type="text" name="regiPh" placeholder="电话号码" >
                    <input id="t5" class="form-control input-style" type="text" name="regiEm" placeholder="邮箱" >
+                   <input id="t6" class="form-control input-style" type="text" name="regiEm" placeholder="性别" >
                      <!--可以为Null-->
                    <!--<input id="t4" class="form-control input-style" type="text" name="" placeholder="生日" >
                    <input id="t6" class="form-control input-style" type="text" name="" placeholder="电话号码" >
                     -->
                      
-                   <button id="loginButton2" class="btn btn-default button-style" type="submit" style="width:100%;" disabled="disabled" onclick="isMoreMessage()">注册</button>
+                   <button id="loginButton2" class="btn btn-default button-style" type="button" style="width:100%;" disabled="disabled" onclick="isMoreMessage()">注册</button>
                  </form>
                 </div>
                 
@@ -92,10 +93,15 @@
         <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
         <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
         <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="http://www.bichlmeier.info/sha256.js"></script>
     <script type="text/javascript">
+        
+
         changeLoginBoxLocation();
         checkCodeListen();
         
+        var oldToken = "";
+
         $(window).resize(function(){
             changeLoginBoxLocation();
             //alert(1);
@@ -108,29 +114,59 @@
             //img.src="checkCode?time="+new Date().getTime();  
         }
         
+        
+        function isMoreMessage2(){
+            var url = 'http://192.168.65.58/api/v1/user/login';
+            var userName = $("#denglu1").val();
+            var pw = $("#denglu2").val();
+            
+            alert(pw);
+
+            $.post(url,{
+                userName:userName,
+                pw:pw
+                },
+                function(data,status){
+                alert(status);
+                oldToken = "";
+            });
+        }
+
         function isMoreMessage(){
-            /*var r=confirm("我们推荐你填写更多信息")
-            if (r==true && isSub == 1)
-            {
-                $("#t1").css("display","none");
-                $("#t2").css("display","none");
-                $("#t3").css("display","none");
-                
-                $("#t4").css("display","block");
-                $("#t5").css("display","block");
-                $("#t6").css("display","block");
-                
-                $("#loginButton2").removeAttr("onclick");
-                //$("#loginButton2").attr("onclick","regi2()")
-                //$("#loginButton2").removeAttr("type");
-                //$("#loginButton2").attr("type","submit");
-            }
-            else
-            {
-                $("#regiForm").submit();
-            }*/
+            var url = 'http://192.168.65.58/api/v1/user/register';
+            // var url = 'http://192.168.65.84:5001/user/register';
+            var userName = $("#t1").val();
+            var pw = $("#t2").val();
+            var email = $("#t5").val();
+            var phone = $("#t4").val();
+            var gender = $("#t6").val();
+
+            $.post(url,{
+                userName:userName,
+                pw:pw,
+                email:email,
+                phone:phone,
+                gender:gender
+                },
+                function(data,status){
+                alert(status);
+                alert(data);
+                oldToken = "";
+            });
         }
         
+        function updatetoken(){
+            var url = "http://192.168.65.58/api/v1/token/update";
+            oldToken = oldToken;
+            $.post(url,{
+                oldToken:oldToken
+                },
+                function(data,status){
+                    alert(status);
+                    oldToken="";
+            });
+        }
+
         
         function NoBlank(va){
             if(va.value.length =="" || va.value == null){

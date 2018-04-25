@@ -24,8 +24,14 @@
  |-|-|-|-|
 |number|int|返回商家数目|是|
 |page|int|显示商家页数|是|
- ### 返回值说明
+ ## ### 返回值说明
  |字段|含义|
+ |-|-|
+ |shop|商家信息数组|
+ |数组中存放信息json对象||# 返回值说明
+ 
+ ## 商家信息json对象字段说明
+  |字段|含义|
  |-|-|
  |shopId|商店Id|
  |shopName|商店名称|
@@ -36,12 +42,22 @@
 ```
     //样例说明正常显示
     {
-        "shopId":1,
+        "shop":[
+       { 
+        "shopId":"1",
         "shopName":"xxx",
         "shopRank":5,
         "shopPicture":"picture.jpg",
-        "isOpen":0
-        
+        "isOpen":"0"
+       },
+        { 
+        "shopId":"2",
+        "shopName":"xxx",
+        "shopRank":"5",
+        "shopPicture":"picture.jpg",
+        "isOpen":"0"
+       }
+      ]
     }      
     //未提供足够参数
     {
@@ -79,13 +95,13 @@
         "shopAddress":"512",
         "shopPhoneNumber":"13955556666",
         "shopRank":5,
-        "shopPicture":"picture.jpg",
+        "shopPicture":"picture.jpg"
         "isOpen":1
     }     
        //用户id不存在 
     {
         "status":flase,
-        "info":"wrong disaplay"
+        "info":wrong disaplay
     } 
 ```
  ### 3.修改商家信息
@@ -100,9 +116,8 @@
 |shopkeeper|varchar|商家名|是|
 |address|varchar|商店地址|是|
 |phoneNumber|varchar|商家号码|是|
-|rank|int|商店等级|是|
 |picture|varch|商品图片|否|
-|isOpen|int|营业状态|是|
+
 ### 返回值说明
  |字段|含义|
  |-|-|
@@ -112,9 +127,8 @@
 |shopkeeper|商家名|
 |shopAddress|商店地址|
 |shopPhoneNumber|商家号码|
-|shopRank|商店等级|
 |shopPicture|商品图片|
-|isOpen|营业状态|
+
 ```
     //样例说明
     {
@@ -126,12 +140,12 @@
         "shopPhoneNumber":"13955556666",
         "shopPicture":"picture.jpg",
         "shopRank":5,
-        "isOpen":0
+        "isOpen":0;
     }      
        //用户id无法修改
     {
         "status":flase,
-        "info":"the shopId can not modify ,information"
+        "info":"the shopId can not modify information"
     }
 ```
 
@@ -172,14 +186,14 @@
         "shopAddress":"513",
         "shopPhoneNumber":"13955556666",
         "shopRank":5,
-        "shopPicture":"picture.jpg",
-        "isOpen":0
+        "shopPicture":"picture.jpg"
+        "isOpen":0;
         
     }  
        //未提供足够参数
     {
         "status":flase,
-        "info":"can not add shop"
+        "info":can not add shop
     }    
 ```
 
@@ -194,30 +208,13 @@
  ### 返回值说明
  |字段|含义|
  |-|-|
- |shopId|商店的ID|
-|shopName|商店名|
-|shopType|商店类型|
-|shopkeeper|商家名|
-|shopAddress|商店地址|
-|shopPhoneNumber|商家号码|
-|shopRank|商店等级|
-|shopPicture|商品图片|
-|isOpen|营业状态|
 |isDelete|删除状态，0代表未删除，1代表删除|
 
 ```
     //样例说明
     {
-        "shopId":1,
-        "shopName":"xxx",
-        "shopType":"午餐",
-        "shopkeeper":"商家名",
-        "shopAddress":"512",
-        "shopPhoneNumber":"13955556666",
-        "shopRank":5,
-        "shopPicture":"Picture.jpg",
-        "isOpen":0,
-        "isDelete":1
+
+        "isDelete":1,
     }      
        //id不存在
     {
@@ -225,27 +222,27 @@
         "info":shopId can not found and can not delete
     }
 ```
-### 5.修改营业状态
+### 5.是否营业
 >//内部访问地址如下
  "http://myhost:port/shop/shopOpen"
 
 |字段|格式|含义|必填|
  |-|-|-|-|
  |id|int|商家id|是|
- |open|int|营业状态|是|
+ |open|int|营业状态|是| 
  ### 返回值说明
  |字段|含义|
  |-|-|
  |isOpen|0代表未营业，1代表营业|
 ```
-    //样例说明，当open为1时为营业
+    //样例说明
     {
-        "isOpen":1
+        "isOpen":0
     }
         //id不存在
     {
         "status":flase,
-        "info":"shopId can not found and can not open"
+        "info":shopId can not found and can not open
     }
 ```
  ### 6.审核商家
@@ -255,15 +252,16 @@
  |字段|格式|含义|必填|
  |-|-|-|-|
  |id|int|商家id|是|
- |verify|int|商家审核状态|是|
+ 
   ### 返回值说明
  |字段|含义|
  |-|-|
  |isVerify|0代表未通过审核，1代表通过审核|
+ 
 ```
-    //样例说明，当verify为1时，通过审核
+    //样例说明
     {
-        "isVerify":1
+        "isVerify":0
     }
         //id不存在
     {
@@ -272,14 +270,14 @@
     }
 ```
 
- ### 7.修改评级
+ ### 7.评级
  >//内部访问地址如下
  "http://myhost:port/shop/shopRank"
 
  |字段|格式|含义|必填|
  |-|-|-|-|
  |id|int|商家id|是|
- |rank|int|商家评级分|是|
+ |rank|int|商家评级|是|
  ### 返回值说明
  |字段|含义|
  |-|-|
