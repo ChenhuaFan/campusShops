@@ -26,7 +26,7 @@ app.use(async (ctx, next) => {
   console.log(`${ctx.method} ${ctx.url} - ${ms}ms`)
 })
 
-// routes
+// init bff
 app.use(auth.routes(), auth.allowedMethods())
 app.use(test.routes(), test.allowedMethods())
 
