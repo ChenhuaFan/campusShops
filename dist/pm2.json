@@ -76,6 +76,17 @@
           "error_file" : "./test-err.log",
           "out_file": "./test-out.log",
           "pid_file": "./test.pid"
+      },
+      {
+          "name": "order",
+          "cwd": "/var/www/bff/order",
+          "script": "./bin/www",
+          "min_uptime": "60s",
+          "max_restarts": 30,
+          "exec_mode" : "cluster_mode",
+          "error_file" : "./test-err.log",
+          "out_file": "./test-out.log",
+          "pid_file": "./test.pid"
       }
     ]
   }
