@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  <display-name>user</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  
+  <!-- 用户登陆服务 -->
+  <servlet>
+    <servlet-name>Login</servlet-name>
+    <servlet-class>Servlet.userLogin</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Login</servlet-name>
+    <url-pattern>/userLogin</url-pattern>
+  </servlet-mapping>
+  
+  <!-- 用户注册服务 -->
+  <servlet>
+    <servlet-name>Register</servlet-name>
+    <servlet-class>Servlet.userRegister</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Register</servlet-name>
+    <url-pattern>/userRegister</url-pattern>
+  </servlet-mapping>
+  
+  <!-- 特征字段查重服务 -->
+  <servlet>
+    <servlet-name>fieldRecheck</servlet-name>
+    <servlet-class>Servlet.isExisted</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>fieldRecheck</servlet-name>
+    <url-pattern>/isExisted</url-pattern>
+  </servlet-mapping>
+  
+  <!-- 获取用户详细信息服务 -->
+  <servlet>
+    <servlet-name>getDetailInfo</servlet-name>
+    <servlet-class>Servlet.getDetails</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>getDetailInfo</servlet-name>
+    <url-pattern>/getDetails</url-pattern>
+  </servlet-mapping>
+  
+  <!-- 获取用户简略信息服务 -->
+  <servlet>
+    <servlet-name>getBriefInfo</servlet-name>
+    <servlet-class>Servlet.getBrief</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>getBriefInfo</servlet-name>
+    <url-pattern>/getBrief</url-pattern>
+  </servlet-mapping>
+  
+  <!-- 修改用户基本信息服务 -->
+  <servlet>
+    <servlet-name>modifyEssential</servlet-name>
+    <servlet-class>Servlet.modifyEssentialInfo</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>modifyEssential</servlet-name>
+    <url-pattern>/modifyEssentialInfo</url-pattern>
+  </servlet-mapping>
+  
+  <!-- 修改用户名服务 -->
+  <servlet>
+    <servlet-name>modifyUserName</servlet-name>
+    <servlet-class>Servlet.modifyUserName</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>modifyUserName</servlet-name>
+    <url-pattern>/modifyUserName</url-pattern>
+  </servlet-mapping>
+  
+  <!-- 修改密码服务 -->
+  <servlet>
+    <servlet-name>modifyPw</servlet-name>
+    <servlet-class>Servlet.modifyPassword</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>modifyPw</servlet-name>
+    <url-pattern>/modifyPassword</url-pattern>
+  </servlet-mapping>
+  
+  <!-- 修改用户角色服务 -->
+  <servlet>
+    <servlet-name>modifyRole</servlet-name>
+    <servlet-class>Servlet.modifyRole</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>modifyRole</servlet-name>
+    <url-pattern>/modifyRole</url-pattern>
+  </servlet-mapping>
+  
+  <!-- 根据角色类型查询用户 -->
+  <servlet>
+    <servlet-name>queryUserByRole</servlet-name>
+    <servlet-class>Servlet.queryUserByRole</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>queryUserByRole</servlet-name>
+    <url-pattern>/queryUserByRole</url-pattern>
+  </servlet-mapping>
+  
+  <!-- 删除用户服务 -->
+  <servlet>
+    <servlet-name>deleteUser</servlet-name>
+    <servlet-class>Servlet.deleteUser</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>deleteUser</servlet-name>
+    <url-pattern>/deleteUser</url-pattern>
+  </servlet-mapping>
+  
+  <!-- 改变用户状态服务 -->
+  <servlet>
+    <servlet-name>changeStatus</servlet-name>
+    <servlet-class>Servlet.changeStatus</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>changeStatus</servlet-name>
+    <url-pattern>/changeStatus</url-pattern>
+  </servlet-mapping>
+  
+  <!-- 获取所有用户服务 -->
+  <servlet>
+    <servlet-name>getAllUser</servlet-name>
+    <servlet-class>Servlet.getAllUser</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>getAllUser</servlet-name>
+    <url-pattern>/getAllUser</url-pattern>
+  </servlet-mapping>
+</web-app>
