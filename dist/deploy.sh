@@ -14,6 +14,7 @@ sudo mv -i /tmp/campusShops/src/webServer/ /var/www/
 sudo mv -i /tmp/campusShops/src/apiVisible/ /var/www/
 sudo mv -i /tmp/campusShops/src/services/ /var/www/
 sudo mv -i /tmp/campusShops/src/bff/ /var/www/
+# replace pm2.json
 sudo mv -i /tmp/campusShops/dist/pm2.json /var/www/
 
 # npm install & redeploy pm2
