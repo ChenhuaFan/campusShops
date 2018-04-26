@@ -74,10 +74,19 @@ public class UserService implements IUserService {
 		
 		reg = new regexStr();
 		//检查用户名邮箱和手机号是否合法
-		if(!(reg.checkUserName(userName) && reg.checkEmail(email) && reg.checkPhone(phone))) {
-			return null;
+		if(!reg.checkUserName(userName)) {
+			String temp[][] = {{"userNameIlleagl"}};
+			return temp;
+		} else if (!reg.checkEmail(email)) {
+			String temp[][] = {{"emailIlleagl"}};
+			return temp;
+		} else if (!reg.checkPhone(phone)) {
+			String temp[][] = {{"phoneIlleagl"}};
+			return temp;
+		} else if (!reg.checkGender(gender)) {
+			String temp[][] = {{"genderIlleagal"}};
+			return temp;
 		} else {
-			
 			//实例化自身对象
 			us = new UserService();
 			//对userName字段查重

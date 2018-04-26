@@ -2,6 +2,7 @@
     <wb-module deploy-name="order">
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/config"/>
         <property name="context-root" value="order"/>
         <property name="java-output-path" value="/order/build/classes"/>
     </wb-module>

@@ -61,7 +61,6 @@ public class userRegister extends HttpServlet {
         		pw = json.getString("pw");
         		phone = json.getString("phone");
         		gender = json.getString("gender");
-        		
         		us = new UserService();
         		
         		//获得用户信息，存入info[][]数组
@@ -71,6 +70,26 @@ public class userRegister extends HttpServlet {
     				JSONObject errorInfo = new JSONObject();
     				errorInfo.put("status", "false");
     				errorInfo.put("info", "the userName has been existed");
+    				out.println(errorInfo);
+        		} else if(info[0][0].equals("userNameIlleagl")) {
+        			JSONObject errorInfo = new JSONObject();
+    				errorInfo.put("status", "false");
+    				errorInfo.put("info", "the type of userName is illeagal");
+    				out.println(errorInfo);
+        		} else if (info[0][0].equals("emailIlleagl")) {
+        			JSONObject errorInfo = new JSONObject();
+    				errorInfo.put("status", "false");
+    				errorInfo.put("info", "the type of email is illeagal");
+    				out.println(errorInfo);
+        		} else if (info[0][0].equals("phoneIlleagl")) {
+        			JSONObject errorInfo = new JSONObject();
+    				errorInfo.put("status", "false");
+    				errorInfo.put("info", "the type of phone is illeagal");
+    				out.println(errorInfo);
+        		} else if (info[0][0].equals("genderIlleagal")) {
+        			JSONObject errorInfo = new JSONObject();
+    				errorInfo.put("status", "false");
+    				errorInfo.put("info", "the type of gender is illeagal");
     				out.println(errorInfo);
         		} else {
     				//将用户信息存入json对象中
@@ -89,6 +108,18 @@ public class userRegister extends HttpServlet {
         		out.println(errorInfo);
         	} catch (IOException e) {
         		//IO异常
+//			e.printStackTrace();
+        	} catch (NumberFormatException e) {
+        		JSONObject errorInfo = new JSONObject();
+        		errorInfo.put("status", "false");
+        		errorInfo.put("info", e.getMessage());
+        		out.println(errorInfo);
+//			e.printStackTrace();
+        	} catch (NullPointerException e) {
+        		JSONObject errorInfo = new JSONObject();
+        		errorInfo.put("status", "false");
+        		errorInfo.put("info", e.getMessage());
+        		out.println(errorInfo);
 //			e.printStackTrace();
         	} finally {
         		out.flush();
