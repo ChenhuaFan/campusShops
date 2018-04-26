@@ -2,8 +2,6 @@ const router = require('koa-router')()
 const service = require('../config/services');
 const agent = require('../common/agent');
 
-router.prefix('/auth')
-
 router.post('/login', async function (ctx, next) {
     // request user -> request token.
     let body = ctx.request.body;
