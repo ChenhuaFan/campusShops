@@ -12,6 +12,17 @@
           "pid_file": "./test.pid"
       },
       {
+          "name": "apiVisible",
+          "cwd": "/var/www/apiVisible",
+          "script": "./bin/www",
+          "min_uptime": "60s",
+          "max_restarts": 30,
+          "exec_mode" : "cluster_mode",
+          "error_file" : "./token-err.log",
+          "out_file": "./token-out.log",
+          "pid_file": "./token.pid"
+      },
+      {
           "name": "token",
           "cwd": "/var/www/services/token",
           "script": "./bin/www",
