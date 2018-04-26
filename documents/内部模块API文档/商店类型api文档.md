@@ -86,13 +86,13 @@
     }    
 ```
 
-### 5.删除商品
+### 3.删除商品类型
 >//内部访问地址如下
  "http://myhost:port/shopType/delete"
 
 |字段|格式|含义|必填|
  |-|-|-|-|
- |id|int|商品id|是|
+ |id|int|商品类型id|是|
  
  ### 返回值说明
  |字段|含义|
@@ -108,6 +108,6 @@
        //id不存在
     {
         "status":flase,
-        "info":shopId can not found and can not delete
+        "info":Id can not found and can not delete
     }
 ```
