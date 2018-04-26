@@ -20,8 +20,9 @@
  ### 字段说明
  |字段|格式|含义|必填|
  |-|-|-|-|
-|number|int|返回商品单页数目|是|
-|page|int|显示商品页数|是|
+|goodsBelong|int|商品所属商家|是|
+|index|int|当前商品位置|是|
+|limit|int|返回的条数|是|
  ### 返回值说明
  |字段|含义|
  |-|-|
@@ -35,6 +36,7 @@
  |goodsStock|商品数量|
  |goodsPrice|商品价格|
  |goodsPicture|商品图片地址|
+ |goodsBelong|商品所属商家|
  
 
 ```
@@ -47,14 +49,16 @@
         "goodsName":"xxx",
         "goodsStock":"100",
         "goodsPrice":"5",
-        "goodsPicture":"picture.jpg"
+        "goodsPicture":"picture.jpg",
+        "goodsBelong":"1"
         },
         {
         "goodsId":"2",
         "goodsName":"xxx",
         "goodsStock":"100",
         "goodsPrice":"3",
-        "goodsPicture":"picture2.jpg"
+        "goodsPicture":"picture2.jpg",
+        "goodsBelong":"1"
         }
       ]
         
@@ -80,9 +84,9 @@
  |goodsName|商品名称|
  |goodsStock|商品数量|
  |goodsPrice|商品价格|
- |goodsBusiness|商品商家|
  |goodsPicture|商品图片地址|
  |goodsDepict|商品描述|
+ |goodsBelong|商品所属商家|
 
  ```
     //样例说明
@@ -91,9 +95,9 @@
         "goodsName":"SA",
         "goodsStock":"100",
         "goodsPrice":"2",
-        "goodsBusiness":"张三",
         "goodsPicture":"picture.jpg",
-        "goodsDepict":"辣"
+        "goodsDepict":"辣"，
+        "goodsBelong":"1"
     }     
        //商品id不存在 
     {
@@ -111,9 +115,9 @@
 |name|varchar|商品名|是|
 |stock|int|商品数量|是|
 |price|int|商品价格|是|
-|business|varchar|商品商家|是|
 |picture|varch|商品图片|否|
 |depict|varch|描述商品|否|
+|goodsBelong|int|商品所属商家|是|
 ### 返回值说明
  |字段|含义|
  |-|-|
@@ -121,9 +125,9 @@
 |goodsName|商品名|
 |goodsStock|商品数量|
 |goodsPrice|商品价格|
-|goodsBusiness|商店商家|
 |goodsPicture|商品图片|
 |goodsDepict|描述商品|
+|goodsBelong|商品所属商家|
 
 ```
     //样例说明
@@ -132,9 +136,9 @@
         "goodsName":"SA",
         "goodsStock":"100",
         "goodsPrice":"2",
-        "goodsBusiness":"张三",
         "goodsPicture":"picture.jpg",
-        "goodsDepict":"辣"
+        "goodsDepict":"辣",
+        "goodsBelong":"1"
     }      
        //用户id无法修改
     {
@@ -151,9 +155,9 @@
 |name|varchar|商品名|是|
 |stock|int|商品数量|是|
 |price|int|商品价格|是|
-|business|varchar|商品商家|是|
 |picture|varch|商品图片|否|
 |depict|varch|描述商品|否|
+|goodsBelong|int|商店Id|是|
 ### 返回值说明
  |字段|含义|
  |-|-|
@@ -161,9 +165,9 @@
 |goodsName|商品名|
 |goodsStock|商品数量|
 |goodsPrice|商品价格|
-|goodsBusiness|商店商家|
 |goodsPicture|商品图片|
 |goodsDepict|描述商品|
+|goodsBelong|商品所属商家|
 
 ```
     //样例说明
@@ -172,9 +176,9 @@
         "goodsName":"SA",
         "goodsStock":"100",
         "goodsPrice":"2",
-        "goodsBusiness":"张三",
         "goodsPicture":"picture.jpg",
         "goodsDepict":"辣"
+        "goodsBelong":"1"
         
     }  
        //未提供足够参数

@@ -1,4 +1,4 @@
-# 商家后台API文档
+# 商店后台API文档
 
 ## 返回错误信息格式说明
 |字段|含义|
@@ -22,13 +22,13 @@
  ### 字段说明
  |字段|格式|含义|必填|
  |-|-|-|-|
-|number|int|返回商家数目|是|
-|page|int|显示商家页数|是|
- ## ### 返回值说明
+|index|int|当前商店位置|是|
+|limit|int|返回的条数|是|
+ ##### 返回值说明
  |字段|含义|
  |-|-|
- |shop|商家信息数组|
- |数组中存放信息json对象||# 返回值说明
+ |shop|商店信息数组|
+ |数组中存放信息json对象|
  
  ## 商家信息json对象字段说明
   |字段|含义|
@@ -38,6 +38,7 @@
  |shopRank|商店评级|
  |shopPicture|商店图片地址|
  |isopen|是否营业|
+ |shopBelong|商店属于某用户|
 
 ```
     //样例说明正常显示
@@ -48,14 +49,16 @@
         "shopName":"xxx",
         "shopRank":5,
         "shopPicture":"picture.jpg",
-        "isOpen":"0"
+        "isOpen":"0"，
+        "shopBelong":"1"
        },
         { 
         "shopId":"2",
         "shopName":"xxx",
         "shopRank":"5",
         "shopPicture":"picture.jpg",
-        "isOpen":"0"
+        "isOpen":"0",
+         "shopBelong":"2"
        }
       ]
     }      
@@ -77,26 +80,26 @@
   |字段|含义|
  |-|-|
 |shopName|商店名称|
-|shopType|商店类型|
 |shopKeeper|商店店主|
 |shopAddress|商店地址|
 |shopPhoneNumber|商店号码|
  |shopRank|商店评级|
  |shopPicture|商店图片|
  |isOpen|是否营业|
+ |shopBelong|商店属于某用户|
  
 
  ```
     //样例说明
     {
         "shopName":"xxx",
-        "shopType":"午餐",
-        "shopkeeper":"商家名",
+        "shopkeeper":"程二",
         "shopAddress":"512",
         "shopPhoneNumber":"13955556666",
         "shopRank":5,
         "shopPicture":"picture.jpg"
-        "isOpen":1
+        "isOpen":1,
+        "shopBelong":"1"
     }     
        //用户id不存在 
     {
@@ -112,35 +115,35 @@
  |-|-|-|-|
  |id|int|商店的ID|是|
 |name|varchar|商店名|是|
-|type|varchar|商店类型|是|
-|shopkeeper|varchar|商家名|是|
+|shopkeeper|varchar|店主名|是|
 |address|varchar|商店地址|是|
 |phoneNumber|varchar|商家号码|是|
 |picture|varch|商品图片|否|
+|belong|int|商店属于某个用户|是|
 
 ### 返回值说明
  |字段|含义|
  |-|-|
  |shopId|商店的ID|
 |shopName|商店名|
-|shopType|商店类型|
-|shopkeeper|商家名|
+|shopkeeper|店主名|
 |shopAddress|商店地址|
 |shopPhoneNumber|商家号码|
 |shopPicture|商品图片|
+|shopBelong|商店属于某用户|
 
 ```
     //样例说明
     {
         "shopId":1,
         "shopName":"xxx",
-        "shopType":"午餐",
-        "shopkeeper":"商家名",
+        "shopkeeper":"陈二",
         "shopAddress":"512",
         "shopPhoneNumber":"13955556666",
         "shopPicture":"picture.jpg",
         "shopRank":5,
         "isOpen":0;
+        "shopBelong":"1"
     }      
        //用户id无法修改
     {
@@ -156,38 +159,38 @@
 字段|格式|含义|必填|
  |-|-|-|-|
 |name|varchar|商店名|是|
-|type|varchar|商店类型|是|
-|shopkeeper|varchar|商家名|是|
+|shopkeeper|varchar|店主名|是|
 |address|varchar|商店地址|是|
 |phoneNumber|varchar|商家号码|是|
 |rank|int|商店等级|是|
 |picture|varch|商品图片|否|
 |isOpen|int|营业状态|是|
+|belong|int|商店属于某个用户|是|
 ### 返回值说明
  |字段|含义|
  |-|-|
  |shopId|商店的ID|
 |shopName|商店名|
-|shopType|商店类型|
-|shopkeeper|商家名|
+|shopkeeper|店主名|
 |shopAddress|商店地址|
 |shopPhoneNumber|商家号码|
 |shopRank|商店等级|
 |shopPicture|商品图片地址|
 |isOpen|营业状态|
+|shopBelong|商店属于某用户|
 
 ```
     //样例说明
     {
         "shopId":2,
         "shopName":"xxx",
-        "shopType":"午餐",
-        "shopkeeper":"商家名",
+        "shopkeeper":"程二",
         "shopAddress":"513",
         "shopPhoneNumber":"13955556666",
         "shopRank":5,
         "shopPicture":"picture.jpg"
         "isOpen":0;
+        "shopBelong":"1"
         
     }  
        //未提供足够参数
@@ -293,13 +296,14 @@
         "info":"shopId can not found and can not comment"
     }
  ```
- ### 8.通过商家名获取商家id
+ ### 8.通过商店名获取商家id
  >//内部访问地址如下
  "http://myhost:port/shop/queryShopidByName"
 
  |字段|格式|含义|必填|
  |-|-|-|-|
- |name|varchar|商家名|是|
+ |name|varchar|商店名|是|
+ |shopBelong|商店属于某用户|
  ### 返回值说明
  |字段|含义|
  |-|-|
