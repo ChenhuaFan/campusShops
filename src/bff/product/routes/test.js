@@ -1,34 +1,82 @@
 const router = require('koa-router')()
 
-router.prefix('/user')
+router.prefix('/goods')
 
-router.post('/userLogin', function (ctx, next) {
+router.post('/disaplay', function (ctx, next) {
     let body = ctx.request.body;
     console.log(body);
-    if (body.userName == 'sam' && body.pw == 'd123456f') {
-        ctx.body = {
-            'userID': 1,
-            'userName': 'sam',
-            'role': 'admin',
-            'headPortrait': 'sam.jpg'
-          };
-    } else {
-        ctx.body = {
-            'status': false,
-            'info': 'fuck!'
-          };
+    ctx.body = {
+        'goods': [
+            {
+                'goods': 1,
+                'goodsName': '辣条',
+                'goodsStock': 1000,
+                'goodsPrice': 2.5,
+                'goodsPicture': 'picture.jpg',
+                'goodsBelong': 1
+            },
+            {
+                'goods': 2,
+                'goodsName': '鸡腿',
+                'goodsStock': 50,
+                'goodsPrice': 5,
+                'goodsPicture': 'picture.jpg',
+                'goodsBelong': 1
+            },
+            {
+                'goods': 3,
+                'goodsName': '汉堡包',
+                'goodsStock': 60,
+                'goodsPrice': 20,
+                'goodsPicture': 'picture.jpg',
+                'goodsBelong': 1
+            }
+        ]
     }
 })
 
-router.post('/userRegister', function (ctx, next) {
+router.post('/allDisaplay', function (ctx, next) {
     let body = ctx.request.body;
     console.log(body);
     ctx.response.status = 200;
-    ctx.body = {
-        'userID': 1,
-        'userName': body.userName,
-        'role': 'user',
-        'headPortrait': body.userName+'.jpg'
+    switch(body.id) {
+        case '1':
+            ctx.body = {
+                'goods': 1,
+                'goodsName': '辣条',
+                'goodsStock': 1000,
+                'goodsPrice': 2.5,
+                'goodsPicture': 'picture.jpg',
+                'goodsBelong': 1
+            }
+            return;
+        case '2':
+            ctx.body = {
+                'goods': 2,
+                'goodsName': '鸡腿',
+                'goodsStock': 50,
+                'goodsPrice': 5,
+                'goodsPicture': 'picture.jpg',
+                'goodsDepict': "辣",
+                'goodsBelong': 1
+            }
+            return;
+        case '3':
+            ctx.body = {
+                'goods': 3,
+                'goodsName': '汉堡包',
+                'goodsStock': 60,
+                'goodsPrice': 20,
+                'goodsPicture': 'picture.jpg',
+                'goodsBelong': 1
+            }
+            return;
+        default:
+            ctx.body = {
+                'status': false,
+                'info': 'wrong disaplay'
+            }
+            return;
     }
 })
 

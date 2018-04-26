@@ -5,8 +5,8 @@ const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
 
-const auth = require('./routes/auth')
-const test = require('./routes/test')
+const auth = require('./routes/order')
+// const test = require('./routes/test')
 
 // error handler
 onerror(app)
@@ -28,7 +28,7 @@ app.use(async (ctx, next) => {
 
 // init bff
 app.use(auth.routes(), auth.allowedMethods())
-app.use(test.routes(), test.allowedMethods())
+// app.use(test.routes(), test.allowedMethods())
 
 // error-handling
 app.on('error', (err, ctx) => {

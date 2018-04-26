@@ -1,22 +1,45 @@
 const router = require('koa-router')()
 
-router.prefix('/user')
+router.prefix('/shop')
 
-router.post('/userLogin', function (ctx, next) {
+router.post('/shopDisaplay', function (ctx, next) {
     let body = ctx.request.body;
     console.log(body);
-    if (body.userName == 'sam' && body.pw == 'd123456f') {
-        ctx.body = {
-            'userID': 1,
-            'userName': 'sam',
-            'role': 'admin',
-            'headPortrait': 'sam.jpg'
-          };
-    } else {
-        ctx.body = {
-            'status': false,
-            'info': 'fuck!'
-          };
+    ctx.body = {
+        'shop': [
+            {
+                "shopId": 1,
+                "shopName": "爱上堡",
+                "shopRank": 5,
+                "shopPicture": "picture.jpg",
+                "isOpen": 0,
+                "shopBelong": 1
+            },
+            {
+                "shopId": 2,
+                "shopName": "徽大厨",
+                "shopRank": 5,
+                "shopPicture": "picture.jpg",
+                "isOpen": 0,
+                "shopBelong": 2
+            },
+            {
+                "shopId": 3,
+                "shopName": "家常菜馆",
+                "shopRank": 5,
+                "shopPicture": "picture.jpg",
+                "isOpen": 0,
+                "shopBelong": 2
+            },
+            {
+                "shopId": 4,
+                "shopName": "黄焖鸡米饭",
+                "shopRank": 5,
+                "shopPicture": "picture.jpg",
+                "isOpen": 0,
+                "shopBelong": 2
+            }
+        ]
     }
 })
 

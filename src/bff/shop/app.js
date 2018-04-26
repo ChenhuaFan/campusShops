@@ -5,7 +5,7 @@ const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
 
-const auth = require('./routes/auth')
+const auth = require('./routes/shop')
 const test = require('./routes/test')
 
 // error handler
