@@ -11,6 +11,7 @@ sudo rm -rf /var/www/services/
 sudo rm -rf /var/www/bff/
 
 sudo mv -i /tmp/campusShops/src/webServer/ /var/www/
+sudo mv /tmp/campusShops/src/static/ /var/www/nginx/
 sudo mv -i /tmp/campusShops/src/apiVisible/ /var/www/
 sudo mv -i /tmp/campusShops/src/services/ /var/www/
 sudo mv -i /tmp/campusShops/src/bff/ /var/www/
