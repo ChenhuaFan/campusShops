@@ -6,19 +6,26 @@
 #
 
 sudo rm -rf /var/www/webServer/
+sudo rm -rf /var/www/apiVisible/
 sudo rm -rf /var/www/services/
 sudo rm -rf /var/www/bff/
 
-sudo mv -i /tmp/campusShops/src/services/ /var/www/
 sudo mv -i /tmp/campusShops/src/webServer/ /var/www/
+sudo mv /tmp/campusShops/src/static/ /var/www/nginx/
+sudo mv -i /tmp/campusShops/src/apiVisible/ /var/www/
+sudo mv -i /tmp/campusShops/src/services/ /var/www/
 sudo mv -i /tmp/campusShops/src/bff/ /var/www/
+# replace pm2.json
 sudo mv -i /tmp/campusShops/dist/pm2.json /var/www/
 
 # npm install & redeploy pm2
-# services 3000
+# webServer 3000
 cd /var/www/webServer/
 sudo npm install
-# 5000
+# apiVisible
+cd /var/www/apiVisible/
+sudo npm install
+# services 5000
 cd /var/www/services/token/
 sudo npm install
 
