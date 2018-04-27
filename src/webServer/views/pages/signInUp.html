@@ -125,10 +125,10 @@
                 pw:pw
                 },
                 function(data,status){
-                alert(data.token);
+                console(data.token);
                 console(status);
                 oldToken = "";
-                window.open("http://192.168.65.58/");
+                window.location.href="http://192.168.65.58/";
             });
         }
 
@@ -150,10 +150,10 @@
                 gender:gender
                 },
                 function(data,status){
-                alert(data.token);
+                console(data.token);
                 console(status);
                 oldToken = "";
-                window.open("http://192.168.65.58/");
+                window.location.href="http://192.168.65.58/";
             });
         }
         
