@@ -1,20 +1,19 @@
 # CampusShops
-校园商城
 
 # Architecture
 ![architecture](https://github.com/ChenhuaFan/campusShops/blob/master/documents/imgs/structure.png)
 
 # files structure
 - /src
-  - /www
+  - /www | for website
     - /static
     - /pages
     - /...
-  - /authService
+  - /authService  | for user authorization service
     - /...
   - /apiGateway
     - /...
-  - /bff
+  - /bff  | for micro service modules
     - /...
   - /Services
     - /users
@@ -22,7 +21,3 @@
       - /...
     - /...
 - README.md
-- /dist
-- LICENSE
-- .gitignore
-- /documents
